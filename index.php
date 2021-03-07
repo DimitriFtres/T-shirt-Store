@@ -7,7 +7,7 @@ try {
     $bdd = new mysqli($host, $user, $password, $table_name);
 } 
 catch(Exception $e) {
-    die('Erreur ; ' .$e->getMessage());
+    die('Erreur ; ' .$e->error());
 }
 ?>
 <!DOCTYPE html>
@@ -66,6 +66,7 @@ catch(Exception $e) {
                         }
                     }
                     echo "</div>";
+                    /*fermer la connexion a la bdd*/
                 ?>
         </div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
