@@ -1,0 +1,26 @@
+.background {
+    background-color: #281234;
+}
+.color-light {
+    color : #E2C6AB;
+}
+.color-light:hover {
+    text-decoration: none;
+    color : #4B8893;
+}
+.color-green {
+    color : #4B8893;
+}
+.color-green:hover {
+    text-decoration: none;
+    color : #E2C6AB;
+}
+.bold {
+    font-weight: 600;
+}
+.bolder {
+    font-weight : 900;
+}
+.couleur-smooth {
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
