@@ -1,36 +1,15 @@
 <?php
-    $host = "localhost";
-    $user = "root";
-    $password = "root";
-    $table_name = "tshirt_store";
-try {
-    $bdd = new mysqli($host, $user, $password, $table_name);
-} 
-catch(Exception $e) {
-    die('Erreur ; ' .$e->error());
-}
+    include("En_tete.php");
 ?>
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <link href="css/style.css" type="text/css" rel="stylesheet">
-    <title>T-shirt Store</title>
-</head>
 <body>
+<?php
+    include("Header.php");
+?>
 <div class="container mt-5 pt-5">
             <div class="row">
                 <?php
                     /*-------------------------Style des articles t-shirt----------------------*/
-                    $classDivEtiquette = 'class="col-10 offset-1 col-sm-5 offset-sm-1 col-lg-3 card offset-lg-1 mb-5"';/*mettre les class de la div*/
-                    $classAEtiquette = 'class="color-green text-decoration-none couleur-smooth"';
-                    $classimgEtiquette = 'class="card-img-top"';
-                    $classNomTShirtEtiquette = 'class="text-capitalize text-center card-title h2"';
-                    $classAuteurEtiquette = 'class="text-capitalize text-center card-title h3"';
+                    include("articles/Class_Article.php");
                     
                     /*--------------------------------Création des articles t-shirt------------------------*/
 
@@ -41,12 +20,7 @@ catch(Exception $e) {
                                               LIMIT 3');
                     $article_Deja_Cree = 0;
                     while($e = $etiquette -> fetch_array()){
-                        echo "<div ".$classDivEtiquette.">
-                        <a href=\""/*mettre l'url de où cela mène*/."#\" ".$classAEtiquette.">
-                        <img ".$classimgEtiquette." src=\"".$e['Image']."\">
-                        <p ".$classNomTShirtEtiquette.">".$e['nom']."</p>
-                        <p ".$classAuteurEtiquette.">".$e['auteur_nom']." ".$e['prenom']."</p>
-                        </a></div>";
+                        include("articles/Creation_article.php");
                         $article_Deja_Cree++;
                     }
                     $max = $bdd->query('SELECT MAX(id) AS maxi FROM teeshirts');
@@ -57,12 +31,7 @@ catch(Exception $e) {
                                                    JOIN auteurs as a ON a.id = t.auteur
                                                    WHERE t.id =".$rand);
                         if($e = $aleatoire -> fetch_array()){
-                            echo "<div ".$classDivEtiquette.">
-                            <a href=\""/*mettre l'url de où cela mène*/."#\" ".$classAEtiquette.">
-                            <img ".$classimgEtiquette." src=\"".$e['Image']."\">
-                            <p ".$classNomTShirtEtiquette.">".$e['nom']."</p>
-                            <p ".$classAuteurEtiquette.">".$e['auteur_nom']." ".$e['prenom']."</p>
-                            </a></div>";
+                            include("articles/Creation_article.php");
                         }
                     }
                     echo "</div>";
