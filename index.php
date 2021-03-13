@@ -1,5 +1,5 @@
 <?php
-    include("En_tete.php");
+    include("Head.php");
 ?>
 <body>
 <?php
@@ -19,18 +19,18 @@
                                               GROUP BY tc.ID_teeshirt ASC 
                                               LIMIT 3');
                     $article_Deja_Cree = 0;
-                    while($e = $etiquette -> fetch_array()){
+                    while($e = $etiquette -> fetch()){
                         include("articles/Creation_article.php");
                         $article_Deja_Cree++;
                     }
                     $max = $bdd->query('SELECT MAX(id) AS maxi FROM teeshirts');
-                    $max  = $max -> fetch_array()['maxi'];
+                    $max  = $max -> fetch()['maxi'];
                     for($i = 0; $i < (6-$article_Deja_Cree); $i++){
                         $rand = rand(1, $max);
                         $aleatoire = $bdd-> query("SELECT t.id, t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, a.prenom FROM teeshirts AS t 
                                                    JOIN auteurs as a ON a.id = t.auteur
                                                    WHERE t.id =".$rand);
-                        if($e = $aleatoire -> fetch_array()){
+                        if($e = $aleatoire -> fetch()){
                             include("articles/Creation_article.php");
                         }
                     }

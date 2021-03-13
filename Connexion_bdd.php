@@ -4,9 +4,9 @@
     $password = "root";
     $table_name = "tshirt_store";
 try {
-    $bdd = new mysqli($host, $user, $password, $table_name);
+    $bdd = new PDO("mysql:host=".$host."; dbname=".$table_name, $user, $password);
 } 
 catch(Exception $e) {
-    die('Erreur ; ' .$e->getMessage());
+    die('Erreur ; ' .$e->errorInfo());
 }
 ?>
