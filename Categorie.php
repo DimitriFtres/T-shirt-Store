@@ -1,12 +1,10 @@
 <?php
-    include("Connexion_bdd.php");
-    /*-------------------------Style des articles t-shirt----------------------*/
-    include("articles/Class_Article.php");
     include("Head.php");
-    include("Header.php");
+    include("articles/Class_Article.php");
     ?>
 <body>
     <?php
+        include("Header.php");
         if(isset($_GET["cat"])){
             if($categorie = $bdd->prepare('SELECT t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, a.prenom FROM teeshirts AS t 
                                       JOIN auteurs as a ON a.id = t.auteur
