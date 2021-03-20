@@ -1,17 +1,20 @@
 .background {
     background-color: #281234;
 }
+.background-light {
+    background-color: #E2C6AB;
+}
 .color-light {
     color : #E2C6AB;
 }
-.color-light:hover {
+a.color-light:hover {
     text-decoration: none;
     color : #4B8893;
 }
 .color-green {
     color : #4B8893;
 }
-.color-green:hover {
+a.color-green:hover {
     text-decoration: none;
     color : #E2C6AB;
 }

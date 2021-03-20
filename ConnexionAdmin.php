@@ -13,7 +13,7 @@
             <p class="h2 mt-3">Admin</p>
             <?php
                 if(isset($_SESSION["id"])){
-                    header("Location: Administration/AdminAccueil.php");
+                    header("Location: Administration/AdminGestionT-shirt.php");
                 }else {
                     if(isset($_GET["error"])){
                         echo "<p class=\"\">Vos identifiants sont incorrects</p>";
