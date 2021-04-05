@@ -18,7 +18,6 @@
                 $auteurdispo = '';
                 if(!empty($_GET["id"])){
                     $id = htmlspecialchars($_GET["id"]);
-                    echo "<input type=\"hidden\" value=\"".$id."\" class=\"invisible\" name=\"id\">";
                     $modification = $bdd->prepare('SELECT * FROM teeshirts WHERE ID = :id');
                     $modification -> execute(array(':id' => $id));
                     if($modification = $modification ->fetch()){

@@ -16,6 +16,7 @@
                     $etiquette = $bdd->query('SELECT t.id, t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, a.prenom, COUNT(tc.ID_teeshirt) AS position FROM teeshirts AS t 
                                               JOIN Teeshirt_Commande AS tc ON tc.ID_teeshirt = t.id
                                               JOIN auteurs as a ON a.id = t.auteur
+                                              WHERE t.Date_supp IS NULL
                                               GROUP BY tc.ID_teeshirt ASC 
                                               LIMIT 3');
                     $article_Deja_Cree = 0;
@@ -25,13 +26,16 @@
                     }
                     $max = $bdd->query('SELECT MAX(id) AS maxi FROM teeshirts');
                     $max  = $max -> fetch()['maxi'];
-                    for($i = 0; $i < (6-$article_Deja_Cree); $i++){
+                    for($i = 0; $i < (6-$article_Deja_Cree); $i++){                            
                         $rand = rand(1, $max);
-                        $aleatoire = $bdd-> query("SELECT t.id, t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, a.prenom FROM teeshirts AS t 
-                                                   JOIN auteurs as a ON a.id = t.auteur
-                                                   WHERE t.id =".$rand);
-                        if($e = $aleatoire -> fetch()){
+                        $sql = "SELECT t.id, t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, a.prenom FROM teeshirts AS t 
+                                JOIN auteurs as a ON a.id = t.auteur
+                                WHERE t.id = ".$rand." AND t.Date_supp IS NULL";
+                                $aleatoire = $bdd-> query($sql);
+                        if($e = $aleatoire->fetch()){
                             include("articles/Creation_article.php");
+                        }else{
+                            $i--;
                         }
                     }
                     echo "</div>";

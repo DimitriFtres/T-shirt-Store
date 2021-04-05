@@ -8,10 +8,12 @@
 ?>
 <body>
     <?php
-        if($_GET["success"] === "ok"){
-            echo "<h1 class=\"text-center my-5\">Les modifications ont été enregistrées</h1>";
-        }elseif($_GET["success"] === "ko"){
-            echo "<h1 class=\"text-center my-5\">Un problème est survenu durant la modification. Veuillez recommencer.</h1>";
+        if(!empty($_GET["success"])){
+            if($_GET["success"] === "ok"){
+                echo "<h1 class=\"text-center my-5\">Les modifications ont été enregistrées</h1>";
+            }elseif($_GET["success"] === "ko"){
+                echo "<h1 class=\"text-center my-5\">Un problème est survenu durant la modification. Veuillez recommencer.</h1>";
+            }
         }
         $tshirt = $bdd->query('SELECT t.id, t.numero_de_reference, t.nom, t.URL, t.Image FROM teeshirts AS t 
         WHERE t.date_supp IS NULL
@@ -30,7 +32,7 @@
                     </div>
                     <div class=\"w-25 d-flex justify-content-end\">
                         <a class=\"px-2 color-light\" href=\"CreationTshirt.php?id={$list["id"]}\">Modifier</a>
-                        <a class=\"px-2 color-light\"href=\"#\">Supprimer</a>
+                        <a class=\"px-2 color-light\"href=\"SupprimerTshirt.php?id={$list["id"]}\">Supprimer</a>
                     </div>
             </div>";
         }
