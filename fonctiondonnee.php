@@ -28,14 +28,10 @@ floatval($prix);
 function modifierBDD($bdd, $nomtable, $id, $tableauAChanger, $champautre, $champteeshirt){
     $champsBdd = $bdd->prepare("SELECT * FROM ".$nomtable." WHERE ".$champteeshirt." = ?");
     $champsBdd ->execute(array($id));
-    $champsBdd->debugDumpParams();
     $ancien_resultat = array();
     while($reponse = $champsBdd ->fetch()){
-        print_r($reponse);
         $ancien_resultat[] = $reponse[$champautre];
     }
-    print_r($ancien_resultat);
-    print_r($tableauAChanger);
     $tableau_ajouter = array_diff($tableauAChanger, $ancien_resultat); // si tableau_diff a une valeur cela veut dire qu'il faut ajouter
     $tableau_supprimer = array_diff($ancien_resultat, $tableauAChanger); // si tableau_diff a une valeur cela veut dire qu'il faut supprimer
     if($tableau_supprimer){
@@ -55,7 +51,7 @@ function imagetest($image){
     $target_dir = "../uploads2/";
     $target_file = $target_dir . basename($image["name"]);
     $uploadOk = 1;
-    $retour = false;
+    $retour = 0;
     if(file_exists($target_file)){
         $uploadOk = 0;
     }
@@ -64,15 +60,20 @@ function imagetest($image){
     }
     //Check if image file is a actual image or fake image
     $check = getimagesize($image["tmp_name"]);
-    if($check === false) {
+    if($check === 0) {
         $uploadOk = 0;
     }
     if($uploadOk === 1){
         move_uploaded_file($image["tmp_name"], $target_file);
-        $retour = [true, $target_file];
+        $retour = [1, $target_file];
         return $retour;
     }else {
         return $retour;
     }
 
+}
+function maximumBDD ($bdd, $nomtable){
+    $max = $bdd -> query("SELECT max(ID) FROM ".$nomtable);
+    $max = $max ->fetch();
+    return $max[0];
 }

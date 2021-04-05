@@ -12,14 +12,6 @@
         if(isset($_GET["error"])){
             echo "<p class=\"h4 text-center\">Une ou des information(s) encodée(s) est(sont) incorrecte(s)</p>";
         }
-                $modification = [
-                    'Numero_de_reference' => '',
-                    'Nom' => '',
-                    'Prix' => '',
-                    'Description' => '',
-                    'Image' => '',
-                    'Quantite_stock' => ''
-                ];
                 $tailledispo = [];
                 $modeledispo = [];
                 $categoriedispo = '';
@@ -28,9 +20,9 @@
                     $id = htmlspecialchars($_GET["id"]);
                     echo "<input type=\"hidden\" value=\"".$id."\" class=\"invisible\" name=\"id\">";
                     $modification = $bdd->prepare('SELECT * FROM teeshirts WHERE ID = :id');
-                    if($modification -> execute(array(':id' => $id))){
-                        $modification = $modification ->fetch();
-
+                    $modification -> execute(array(':id' => $id));
+                    if($modification = $modification ->fetch()){
+                        
                         $modificationTaille = $bdd->prepare('SELECT ID_Taille FROM tailles_disponible WHERE ID_Teeshirt = :id');
                         $modificationTaille -> execute(array(':id' => $id));
                         while($m = $modificationTaille ->fetch()){
@@ -51,6 +43,15 @@
                         $modificationAuteur -> execute(array(':id' => $id));
                         $auteurs = $modificationAuteur ->fetch();
                         $auteurdispo = $auteurs["Auteur"];
+                    }else{
+                        $modification = [
+                            'Numero_de_reference' => '',
+                            'Nom' => '',
+                            'Prix' => '',
+                            'Description' => '',
+                            'Image' => '',
+                            'Quantite_stock' => ''
+                        ];
                     }
                 }
     ?>

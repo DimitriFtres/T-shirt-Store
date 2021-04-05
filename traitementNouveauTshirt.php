@@ -6,6 +6,9 @@
     include("Head.php");
     include("AdminHeader.html");
     require('fonctiondonnee.php');
+    if(!empty($_GET["id"])){ htmlspecialchars
+        header("Location: traitementModificationTshirt.php?id=".htmlspecialchars($_GET["id"]));
+    }
 
     if(test_tout_est_remplie($_POST)){
     //TRAITER LES INFORMATIONS DE POUR CREER UN NOUVEAU ENREGISTREMENT
@@ -28,13 +31,15 @@
                     foreach($_POST["modele"] as $key => $value){
                         $NouveauModele ->execute(array(":modele" => $value, ":teeshirt" => $max[0]));
                     }
-                    //header('Location: AdminGestionT-shirt.php');
+                    header('Location: AdminGestionT-shirt.php');
+                }else{
+                    header("Location: CreationTshirt.php?error=3");
                 }
             }else{
-                header("Location: CreationT-shirt.php?error=3");
+                header("Location: CreationTshirt.php?error=3");
             }
         }else{
-        //header('Location: CreationTshirt.php?error=1');
+        header('Location: CreationTshirt.php?error=1');
         }
     }else{
     header('Location: CreationTshirt.php?error=2');

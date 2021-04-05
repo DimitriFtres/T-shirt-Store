@@ -5,9 +5,14 @@
     }
     include("Head.php");
     include("AdminHeader.html");
+    $table = "teeshirts";
     require 'fonctiondonnee.php';
     if(empty($_GET["id"])){
         header('Location: traitementNouveauTshirt.php');
+        exit;
+    }elseif($_GET["id"] > maximumBDD($bdd, $table)){
+        header('Location: AdminGestionT-shirt.php?success=ko');  
+        exit;
     }
     if((test_tout_est_remplie($_POST)) OR (empty($_FILES["image"]))){
         $nouveau = $bdd->prepare("UPDATE teeshirts SET
@@ -35,14 +40,26 @@
             $champTee = "ID_teeshirt";
             modifierBDD($bdd, $m, $id, $tab, $champM, $champTee);
             if(!empty($_FILES["image"])){
-                if($retour = imagetest($_FILES["image"])){
+                $retour = imagetest($_FILES["image"]);
+                if($retour){
                     $nouveau = $bdd->prepare("UPDATE teeshirts SET
                                             Image = ?
                                             WHERE ID = ?
                                             ");
                     $nouveau->execute(array($retour[1], $_GET["id"]));
                 
+                }else{
+                    header("Location: CreationTshirt.php?error=3&id=".htmlspecialchars($_GET["id"]));
+                    exit;
                 }
             }
+            header("Location: AdminGestionT-shirt.php?success=ok");
+            exit;
+        }else{
+            header("Location: CreationTshirt.php?error2=&id=".htmlspecialchars($_GET["id"]));
+            exit;
         }
+    }else{
+        header("Location: CreationTshirt.php?error=1&id=".htmlspecialchars($_GET["id"]));
+        exit;
     }

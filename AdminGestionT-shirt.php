@@ -8,10 +8,16 @@
 ?>
 <body>
     <?php
+        if($_GET["success"] === "ok"){
+            echo "<h1 class=\"text-center my-5\">Les modifications ont été enregistrées</h1>";
+        }elseif($_GET["success"] === "ko"){
+            echo "<h1 class=\"text-center my-5\">Un problème est survenu durant la modification. Veuillez recommencer.</h1>";
+        }
         $tshirt = $bdd->query('SELECT t.id, t.numero_de_reference, t.nom, t.URL, t.Image FROM teeshirts AS t 
         WHERE t.date_supp IS NULL
         ');
         echo "<div class=\"container d-flex flex-column\">";
+        echo "<a class=\"color-light background py-1 px-2 rounded align-self-end mb-3\" href=\"CreationTshirt.php\">Ajouter un nouveau t-shirt</a>";
         while($list = $tshirt -> fetch()){
             echo "<div class=\"d-flex justify-content-around mb-2 background align-items-center rounded\">
                     <div class=\"w-75 d-flex justify-content-between\">
@@ -28,7 +34,7 @@
                     </div>
             </div>";
         }
-        echo "<a class=\"color-light background py-1 px-2 rounded align-self-end\" href=\"CreationTshirt.php\">Ajouter un nouveau t-shirt</a></div>";
+        echo "</div>";
     ?>
     
 </body>
