@@ -3,12 +3,12 @@
     if(!isset($_SESSION["id"])){
         header("Location: ../ConnexionAdmin.php");
     }
-    include("AdminHead.php");
+    include("Head.php");
     include("AdminHeader.html");
 ?>
 <body>
     <?php
-        $tshirt = $bdd->query('SELECT t.numero_de_reference, t.nom, t.URL, t.Image FROM teeshirts AS t 
+        $tshirt = $bdd->query('SELECT t.id, t.numero_de_reference, t.nom, t.URL, t.Image FROM teeshirts AS t 
         WHERE t.date_supp IS NULL
         ');
         echo "<div class=\"container d-flex flex-column\">";
@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class=\"w-25 d-flex justify-content-end\">
-                        <a class=\"px-2 color-light\" href=\"#\">Modifier</a>
+                        <a class=\"px-2 color-light\" href=\"CreationTshirt.php?id={$list["id"]}\">Modifier</a>
                         <a class=\"px-2 color-light\"href=\"#\">Supprimer</a>
                     </div>
             </div>";

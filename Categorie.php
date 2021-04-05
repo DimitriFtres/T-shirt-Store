@@ -9,7 +9,7 @@
             if($categorie = $bdd->prepare('SELECT t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, a.prenom FROM teeshirts AS t 
                                       JOIN auteurs as a ON a.id = t.auteur
                                       JOIN categories as c on c.id = t.categorie
-                                      WHERE c.nom = ? AND c.Flag_supp=0
+                                      WHERE c.nom = ? AND c.Flag_supp is NULL
                                       ')){
                 $categorie -> execute(array($_GET["cat"]));
                 if($categorie -> rowCount()){

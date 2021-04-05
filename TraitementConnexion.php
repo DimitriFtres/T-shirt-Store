@@ -15,7 +15,7 @@
                 $admin -> execute(array($_POST["email"], $_POST["mdp"]));
                 if($admin -> rowCount() == 1){
                     $_SESSION["id"] = $admin->fetch();
-                    header("Location: Administration/AdminGestionT-shirt.php");
+                    header("Location: AdminGestionT-shirt.php");
                 }else{
                     header("Location: ConnexionAdmin.php?error");
                     exit;
