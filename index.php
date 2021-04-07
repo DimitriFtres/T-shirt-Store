@@ -24,20 +24,22 @@
                         include("articles/Creation_article.php");
                         $article_Deja_Cree++;
                     }
+                    $article_A_Creer = 6-$article_Deja_Cree;
                     $max = $bdd->query('SELECT MAX(id) AS maxi FROM teeshirts');
-                    $max  = $max -> fetch()['maxi'];
-                    for($i = 0; $i < (6-$article_Deja_Cree); $i++){                            
-                        $rand = rand(1, $max);
+                    $max  = $max -> fetch();
+                    $max = $max['maxi'];
+                    $nombreTshirt = $bdd->query('SELECT count(id) as nombre FROM teeshirts WHERE Date_supp IS NULL');
+                    $nombreTshirt = $nombreTshirt->fetch();
+                    $nombreTshirt = $nombreTshirt['nombre'];
                         $sql = "SELECT t.id, t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, a.prenom FROM teeshirts AS t 
                                 JOIN auteurs as a ON a.id = t.auteur
-                                WHERE t.id = ".$rand." AND t.Date_supp IS NULL";
-                                $aleatoire = $bdd-> query($sql);
-                        if($e = $aleatoire->fetch()){
+                                WHERE t.Date_supp IS NULL
+                                ORDER BY RAND()
+                                LIMIT ".$article_A_Creer;
+                        $aleatoire = $bdd-> query($sql);
+                        while($e = $aleatoire->fetch()){
                             include("articles/Creation_article.php");
-                        }else{
-                            $i--;
                         }
-                    }
                     echo "</div>";
                     /*fermer la connexion a la bdd*/
                 ?>
