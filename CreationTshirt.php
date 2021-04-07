@@ -19,6 +19,8 @@
                 if(!empty($_GET["id"])){
                     $id = htmlspecialchars($_GET["id"]);
                     $modification = $bdd->prepare('SELECT * FROM teeshirts WHERE ID = :id');
+                    print_r($_POST);
+
                     $modification -> execute(array(':id' => $id));
                     if($modification = $modification ->fetch()){
                         
@@ -42,8 +44,10 @@
                         $modificationAuteur -> execute(array(':id' => $id));
                         $auteurs = $modificationAuteur ->fetch();
                         $auteurdispo = $auteurs["Auteur"];
+                    }
                     }else{
                         $modification = [
+                            'ok' => 'ok',
                             'Numero_de_reference' => '',
                             'Nom' => '',
                             'Prix' => '',
@@ -51,8 +55,9 @@
                             'Image' => '',
                             'Quantite_stock' => ''
                         ];
-                    }
                 }
+
+                
     ?>
     <div class="row mt-4 container mx-auto">
         <form class="col-12 col-md-9 col-lg-6 m-auto" action="<?php echo (!empty($_GET["id"])) ? "traitementModificationTshirt.php?id=".htmlspecialchars($_GET["id"]) : "traitementNouveauTshirt.php";  ?>" method="post" enctype="multipart/form-data">

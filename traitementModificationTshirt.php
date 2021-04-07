@@ -14,7 +14,7 @@
         header('Location: AdminGestionT-shirt.php?success=ko');  
         exit;
     }
-    if((test_tout_est_remplie($_POST)) OR (empty($_FILES["image"]))){
+    if((test_tout_est_remplie($_POST)) AND (empty($_FILES["image"])) OR (test_tout_est_remplie($_POST))){
         $nouveau = $bdd->prepare("UPDATE teeshirts SET
                                   Nom = ?,
                                   Numero_de_reference = ?,
@@ -48,9 +48,6 @@
                                             ");
                     $nouveau->execute(array($retour[1], $_GET["id"]));
                 
-                }else{
-                    header("Location: CreationTshirt.php?error=3&id=".htmlspecialchars($_GET["id"]));
-                    exit;
                 }
             }
             header("Location: AdminGestionT-shirt.php?success=ok");
