@@ -3,10 +3,8 @@
     if(!isset($_SESSION["id"])){
         header("Location: ConnexionAdmin.php");
     }
-    include("Head.php");
-    include("AdminHeader.html");
     require('fonctiondonnee.php');
-    if(!empty($_GET["id"])){ htmlspecialchars
+    if((!empty($_GET["id"])) AND (is_numeric($_GET["id"]))){ 
         header("Location: traitementModificationTshirt.php?id=".htmlspecialchars($_GET["id"]));
     }
 
@@ -16,7 +14,7 @@
                                 VAlUES (?,?,?,?,?,?,?,?,?)");
         numerique($_POST["quantite"]);
         numerique($_POST['prix']);
-        if((is_numeric($_POST["quantite"]))){
+        if((is_numeric($_POST["quantite"])) AND (rendre_le_prix_float($_POST["prix"]) !== 0)){
             if($retour = imagetest($_FILES["image"])){
                 if($nouveau ->execute(array($_POST["nom"], $_POST["numero_de_reference"], $_POST["quantite"], $_POST["auteur"], $retour[1], $_POST["description"], $_POST["categorie"], $_POST["prix"], '  '))){
                     $max = $bdd->query("SELECT max(ID) FROM teeshirts");

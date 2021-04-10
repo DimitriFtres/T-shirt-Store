@@ -3,8 +3,6 @@
     if(!isset($_SESSION["id"])){
         header("Location: ConnexionAdmin.php");
     }
-    include("Head.php");
-    include("AdminHeader.html");
     $table = "teeshirts";
     require 'fonctiondonnee.php';
     if(empty($_GET["id"])){
@@ -14,7 +12,7 @@
         header('Location: AdminGestionT-shirt.php?success=ko');  
         exit;
     }
-    if((test_tout_est_remplie($_POST)) AND (empty($_FILES["image"])) OR (test_tout_est_remplie($_POST))){
+    if((test_tout_est_remplie($_POST)) AND (empty($_FILES["image"])) OR (test_tout_est_remplie($_POST)) AND (is_numeric($_GET["id"]))){
         $nouveau = $bdd->prepare("UPDATE teeshirts SET
                                   Nom = ?,
                                   Numero_de_reference = ?,

@@ -1,12 +1,13 @@
 <?php
-    session_start();
+    include("Head.php");
     if(!isset($_SESSION["id"])){
         header("Location: ConnexionAdmin.php");
     }
-    include("Head.php");
-    include("AdminHeader.html");
 ?>
 <body>
+    <?php
+        include("AdminHeader.html");
+    ?>
     <p class="h1 text-center">Ajout de t-shirt</p>
     <?php
         if(isset($_GET["error"])){
@@ -16,7 +17,7 @@
                 $modeledispo = [];
                 $categoriedispo = '';
                 $auteurdispo = '';
-                if(!empty($_GET["id"])){
+                if((!empty($_GET["id"])) AND (is_numeric($_GET["id"]))){
                     $id = htmlspecialchars($_GET["id"]);
                     $modification = $bdd->prepare('SELECT * FROM teeshirts WHERE ID = :id');
                     print_r($_POST);
@@ -156,3 +157,4 @@
         </form>
     </div>
 </body>
+</html>

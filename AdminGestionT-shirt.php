@@ -1,13 +1,12 @@
 <?php
-    session_start();
+    include("Head.php");
     if(!isset($_SESSION["id"])){
         header("Location: ../ConnexionAdmin.php");
     }
-    include("Head.php");
-    include("AdminHeader.html");
 ?>
 <body>
     <?php
+        include("AdminHeader.html");
         if(!empty($_GET["success"])){
             if($_GET["success"] === "ok"){
                 echo "<h1 class=\"text-center my-5\">Les modifications ont été enregistrées</h1>";
@@ -40,3 +39,4 @@
     ?>
     
 </body>
+</html>

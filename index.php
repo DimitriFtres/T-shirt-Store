@@ -1,5 +1,10 @@
 <?php
     include("Head.php");
+    if(!empty($_SESSION)){
+        print_r($_SESSION);
+    }else{
+        echo "hello";
+    }
 ?>
 <body>
 <?php
@@ -16,7 +21,7 @@
                     $etiquette = $bdd->query('SELECT t.id, t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, a.prenom, COUNT(tc.ID_teeshirt) AS position FROM teeshirts AS t 
                                               JOIN Teeshirt_Commande AS tc ON tc.ID_teeshirt = t.id
                                               JOIN auteurs as a ON a.id = t.auteur
-                                              WHERE t.Date_supp IS NULL
+                                              WHERE t.Date_supp IS NULL AND Quantite_stock > 0
                                               GROUP BY tc.ID_teeshirt ASC 
                                               LIMIT 3');
                     $article_Deja_Cree = 0;

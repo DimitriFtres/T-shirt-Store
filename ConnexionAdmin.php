@@ -1,5 +1,4 @@
 <?php
-    session_start();
     include("Head.php");
 ?>
 <body class="h-100 d-flex flex-column">

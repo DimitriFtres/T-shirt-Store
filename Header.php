@@ -14,7 +14,13 @@
         </nav>
         <div class="d-flex">
             <div class="mx-3">
-                <a href="#" class="nav-link color-light bold">Panier</a>
+                <a href="panier.php" class="nav-link color-light bold">Panier
+                <?php 
+                    if(!empty($_SESSION["nombreArticle"])){
+                       echo "(".$_SESSION["nombreArticle"].")";
+                    }
+                ?>
+                </a>
             </div>
             <div class="">
                 <a href="ConnexionAdmin.php" class="nav-link color-light">

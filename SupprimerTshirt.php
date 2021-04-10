@@ -14,9 +14,11 @@
         header('Location: AdminGestionT-shirt.php?success=ko');  
         exit;
     }
-    $supprimer = $bdd->prepare("UPDATE teeshirts SET
-                                Date_supp = NOW()
-                                  WHERE ID = ?
-                                  ");
-    $supprimer -> execute(array($_GET["id"]));
-    header('Location: AdminGestionT-shirt.php?success=ok');
+    if(is_numeric($_GET["id"])){
+        $supprimer = $bdd->prepare("UPDATE teeshirts SET
+                                    Date_supp = NOW()
+                                    WHERE ID = ?
+                                    ");
+        $supprimer -> execute(array($_GET["id"]));
+        header('Location: AdminGestionT-shirt.php?success=ok');
+    }

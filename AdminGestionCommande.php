@@ -1,12 +1,12 @@
 <?php
-    session_start();
+    include("Head.php");
     if(!isset($_SESSION["id"])){
         header("Location: ../ConnexionAdmin.php");
     }
-    include("Head.php");
-    include("AdminHeader.html");
 ?>
+<body>
 <?php
+    include("AdminHeader.html");
     if((!empty($_POST)) AND (!empty($_GET))){
         $nouvelEtat = $bdd->prepare("UPDATE commandes SET Etat_Livraison = ? WHERE ID = ?");
         $nouvelEtat->execute(array($_POST["livrer"], $_GET["com"]));
@@ -61,6 +61,8 @@
 
 
 ?>
+</body>
+</html>
     <!--<article class="d-flex flex-column container m-auto">
         <div class="row">
             <div class="col"><p>Numéro de commandes</p></div>

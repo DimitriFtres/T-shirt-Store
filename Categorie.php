@@ -6,7 +6,7 @@
     <?php
         include("Header.php");
         if(isset($_GET["cat"])){
-            if($categorie = $bdd->prepare('SELECT t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, a.prenom FROM teeshirts AS t 
+            if($categorie = $bdd->prepare('SELECT t.id, t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, a.prenom FROM teeshirts AS t 
                                       JOIN auteurs as a ON a.id = t.auteur
                                       JOIN categories as c on c.id = t.categorie
                                       WHERE c.nom = ? AND c.Flag_supp is NULL AND t.Date_supp IS NULL
