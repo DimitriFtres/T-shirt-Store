@@ -53,13 +53,12 @@
                         if(!empty($_GET["quantite"])){
                             echo "<p class=\"text-warning\">La quantité maximal acceptée pour un t-shirt est de 4.</p>";
                         }
+                        if(!empty($_GET["error"])){
+                            echo "<p class=\"text-warning\">Il manque une information pour ajouter le t-shirt à votre panier.</p>";
+                        }
                         echo "</div>
                         </div>";
-                        if(!empty($_SESSION)){
-                            print_r($_SESSION);
-                        }else{
-                            echo "hello";
-                        }
+                        
             }
         }
     }

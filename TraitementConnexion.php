@@ -1,9 +1,6 @@
 <?php
     session_start();
     include("Connexion_bdd.php");
-    $_POST["email"];
-    $_POST["mdp"];
-    print_r($_POST);
 
     /*connexion a la base de donnée
     comparé les données entre elles

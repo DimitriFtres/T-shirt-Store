@@ -27,3 +27,7 @@ a.color-green:hover {
 .couleur-smooth {
     transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
+.img-panier{
+    width : 80px;
+    height : 80px;
+}

@@ -1,7 +1,7 @@
 <?php
     include("Head.php");
     if(!isset($_SESSION["id"])){
-        header("Location: ../ConnexionAdmin.php");
+        header("Location: ConnexionAdmin.php");
     }
 ?>
 <body>
