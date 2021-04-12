@@ -15,12 +15,12 @@
     if((!empty($_GET["clean"])) AND ($_GET["clean"] === "ok")){
         session_unset();
     }
-    include("Header.php");
     if((isset($_POST["key"])) AND (isset($_GET["key"])) AND (is_numeric($_POST["key"])) AND (is_numeric($_GET["key"])) AND ($_POST["key"] === $_GET["key"])){
         if(($_POST["modifQ"] > 0) AND ($_POST["modifQ"] < 5)){
             $_SESSION["quantite"][$_GET["key"]] = $_POST["modifQ"];
         }
     }
+    include("Header.php");
 ?>
     <section class="container mt-5 mb-3 mx-auto">
         <div class="row">
@@ -98,6 +98,11 @@
                       <p class=\"m-0\">TVAC : ".$total."€</p>
                       </div>
                       </div>
+                      </div>";
+                echo "<div class=\"container d-flex justify-content-end mt-3\">
+                      <div>
+                      <a href=\"ValidationPanier.php\" class=\"py-2 btn btn-light border\">Valider mon panier</a>
+                      </div>      
                       </div>";
             }else{
                 echo "<p class=\"text-center h3 mt-5\">Votre panier est vide</p>";
