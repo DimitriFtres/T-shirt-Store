@@ -14,7 +14,7 @@
                 echo "<h1 class=\"text-center my-5\">Un problème est survenu durant la modification. Veuillez recommencer.</h1>";
             }
         }
-        $tshirt = $bdd->query('SELECT t.id, t.numero_de_reference, t.nom, t.URL, t.Image FROM teeshirts AS t 
+        $tshirt = $bdd->query('SELECT t.id, t.numero_de_reference, t.nom, t.URL, t.Image, t.Quantite_stock FROM teeshirts AS t 
         WHERE t.date_supp IS NULL
         ');
         echo "<div class=\"container d-flex flex-column\">";
@@ -27,6 +27,9 @@
                         </div>
                         <div class=\"pr-2 py-2 color-light w-50\">
                             <span class=\"align-middle\">".$list["nom"]."</span>
+                        </div>
+                        <div class=\"pr-2 py-2 color-light w-50\">
+                            <span class=\"align-middle\"> Quantité : ".$list["Quantite_stock"]."</span>
                         </div>
                     </div>
                     <div class=\"w-25 d-flex justify-content-end\">

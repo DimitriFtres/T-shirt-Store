@@ -54,7 +54,7 @@
                             <div class=\"col-5 col-md-2 px-0 d-flex align-items-center justify-content-center\">
                             <form action=\"?key=".$key."\" method=\"POST\">
                                 <input type=\"hidden\" class=\"hidden\" value=\"".$key."\" name=\"key\"/>
-                                <input class=\"\"type=\"number\" max=\"8\" min=\"1\" name=\"modifQ\" Value=\"".$_SESSION["quantite"][$key]."\">
+                                <input class=\"\"type=\"number\" max=\"4\" min=\"1\" name=\"modifQ\" Value=\"".$_SESSION["quantite"][$key]."\">
                                 <input class=\"\"type=\"submit\" value=\"Changer\">
                             </form>
                             </div>

@@ -3,12 +3,13 @@
     if(!isset($_SESSION["id"])){
         header("Location: ConnexionAdmin.php");
     }
+    $idValide = false;
 ?>
 <body>
     <?php
         include("AdminHeader.html");
     ?>
-    <p class="h1 text-center">Ajout de t-shirt</p>
+    <p class="h1 text-center"><?php if((!empty($_GET["id"])) AND (is_numeric($_GET["id"]))) echo "Modification de t-shirt"; else echo "Ajout de T-shirt" ?></p>
     <?php
         if(isset($_GET["error"])){
             echo "<p class=\"h4 text-center\">Une ou des information(s) encodée(s) est(sont) incorrecte(s)</p>";
@@ -18,9 +19,9 @@
                 $categoriedispo = '';
                 $auteurdispo = '';
                 if((!empty($_GET["id"])) AND (is_numeric($_GET["id"]))){
+                    $idValide = true;
                     $id = htmlspecialchars($_GET["id"]);
                     $modification = $bdd->prepare('SELECT * FROM teeshirts WHERE ID = :id');
-                    print_r($_POST);
 
                     $modification -> execute(array(':id' => $id));
                     if($modification = $modification ->fetch()){
@@ -152,7 +153,7 @@
             </div>
             <div class="d-flex justify-content-end">
                 <input class="d-none" type="submit" value="Créer un nouveau t-shirt" id="submit">
-                <label for="submit" class="input-perso px-2 py-1 btn btn-outline-dark">Créer un nouveau t-shirt</label>
+                <label for="submit" class="input-perso px-2 py-1 btn btn-outline-dark"><?php if((!empty($_GET["id"])) AND (is_numeric($_GET["id"]))) echo "Modifier le t-shirt"; else echo "Ajouter le T-shirt" ?></label>
             </div>
         </form>
     </div>

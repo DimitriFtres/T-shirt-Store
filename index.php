@@ -1,10 +1,5 @@
 <?php
     include("Head.php");
-    if(!empty($_SESSION)){
-        print_r($_SESSION);
-    }else{
-        echo "hello";
-    }
 ?>
 <body>
 <?php

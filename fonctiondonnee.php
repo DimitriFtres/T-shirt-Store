@@ -71,3 +71,5 @@ function maximumBDD ($bdd, $nomtable){
     $max = $max ->fetch();
     return $max[0];
 }
+function VerifEmail ($email){
+}
