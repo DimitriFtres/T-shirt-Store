@@ -1,5 +1,6 @@
 <?php
     include("Head.php");
+    print_r($_SESSION);
 ?>
 <body>
 <?php
@@ -15,11 +16,7 @@
     if((!empty($_GET["clean"])) AND ($_GET["clean"] === "ok")){
         session_unset();
     }
-    if((isset($_POST["key"])) AND (isset($_GET["key"])) AND (is_numeric($_POST["key"])) AND (is_numeric($_GET["key"])) AND ($_POST["key"] === $_GET["key"])){
-        if(($_POST["modifQ"] > 0) AND ($_POST["modifQ"] < 5)){
-            $_SESSION["quantite"][$_GET["key"]] = $_POST["modifQ"];
-        }
-    }
+    
     include("Header.php");
 ?>
     <section class="container mt-5 mb-3 mx-auto">
@@ -31,7 +28,13 @@
             $total = 0;
 
             if(!empty($_SESSION["idArticle"])){
+                $nomTaille = "";
                 foreach($_SESSION["idArticle"] as $key => $value){
+                    $taille = $bdd->prepare("SELECT Nom FROM tailles WHERE ID = :idtaille");
+                    $taille->execute(array(':idtaille' => $_SESSION["taille"][$key]));
+                    if($t = $taille->fetch()){
+                        $nomTaille = $t["Nom"];
+                    }
                     $articlePanier = $bdd -> prepare("SELECT id, Image, Nom, Prix FROM Teeshirts WHERE id = :id");
                     if($articlePanier -> execute(array(':id' => $value))){
                         if($aP = $articlePanier -> fetch()){
@@ -43,7 +46,7 @@
                             </div>
                             <div class=\"col-4 col-md-2 px-0 d-flex align-items-center justify-content-center\">
                             <div>
-                            <p class=\"m-auto\">".$aP["Nom"]."</p>
+                            <p class=\"m-auto\">".$aP["Nom"]." ".$nomTaille."</p>
                             </div>
                             </div>
                             <div class=\"col-5 col-md-3 px-0 d-flex align-items-center justify-content-center\">
@@ -52,10 +55,12 @@
                             </div>
                             </div>
                             <div class=\"col-5 col-md-2 px-0 d-flex align-items-center justify-content-center\">
-                            <form action=\"?key=".$key."\" method=\"POST\">
+                            <form action=\"ModifQuantitePanier.php?key=".$key."\" method=\"POST\">
                                 <input type=\"hidden\" class=\"hidden\" value=\"".$key."\" name=\"key\"/>
                                 <input class=\"\"type=\"number\" max=\"4\" min=\"1\" name=\"modifQ\" Value=\"".$_SESSION["quantite"][$key]."\">
-                                <input class=\"\"type=\"submit\" value=\"Changer\">
+                                <input class=\"\"type=\"submit\" value=\"Changer\">";
+                                if(!empty($_GET["errorQ"])) echo "<p>La quantite est trop élevée.</p>";
+                            echo "
                             </form>
                             </div>
                             <div class=\"col-5 col-md-2 px-0 d-flex align-items-center justify-content-center\">

@@ -4,6 +4,7 @@
 <body>
 <?php
     include("Header.php");
+    print_r($_SESSION);
 ?>
 
 <?php
@@ -51,7 +52,7 @@
                         <input type=\"submit\" value=\"Mettre dans mon panier\" class=\"d-block mx-auto btn btn-outline-secondary mb-5\"/>
                         </form>";
                         if(!empty($_GET["quantite"])){
-                            echo "<p class=\"text-warning\">La quantité maximal acceptée pour un t-shirt est de 4.</p>";
+                            echo "<p class=\"text-warning\">La quantité maximal acceptée pour un t-shirt est dépassé ou il n'y plus assez en stock pour répondre à votre demande.</p>";
                         }
                         if(!empty($_GET["error"])){
                             echo "<p class=\"text-warning\">Il manque une information pour ajouter le t-shirt à votre panier.</p>";

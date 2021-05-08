@@ -1,5 +1,17 @@
 <?php
 include('Connexion_bdd.php');
+if(empty($_SESSION["deconnexion"])){
+    unset($_SESSION['idUtilisateur']);
+    unset($_SESSION['Nom']);
+    unset($_SESSION['Prenom']);
+    unset($_SESSION['Email']);
+    unset($_SESSION['Adresse']);
+    unset($_SESSION['CP']);
+    unset($_SESSION['MDP']);
+    unset($_SESSION['Ville']);
+    unset($_SESSION['Numero']);
+}
+unset($_SESSION['deconnexion']);
 function test_tout_est_remplie($val){
     $cestRemplie = true;
     foreach($val as $key => $v){
@@ -70,6 +82,10 @@ function maximumBDD ($bdd, $nomtable){
     $max = $bdd -> query("SELECT max(ID) FROM ".$nomtable);
     $max = $max ->fetch();
     return $max[0];
+}
+function verif_Stock($quantitevoulu, $quantiteStock){
+    $resultat = (($quantitevoulu > 0) AND ($quantitevoulu < 5) AND ($quantiteStock >= $quantitevoulu)) ? true : false;
+    return $resultat;
 }
 function VerifEmail ($email){
 }

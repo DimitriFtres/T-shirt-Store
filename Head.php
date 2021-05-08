@@ -1,6 +1,20 @@
 <?php
     session_start();
     include('Connexion_bdd.php');
+    if(empty($_SESSION["etredeconnecter"])){
+        unset($_SESSION['idUtilisateur']);
+        unset($_SESSION['Nom']);
+        unset($_SESSION['Prenom']);
+        unset($_SESSION['Email']);
+        unset($_SESSION['Adresse']);
+        unset($_SESSION['CP']);
+        unset($_SESSION['MDP']);
+        unset($_SESSION['Ville']);
+        unset($_SESSION['Numero']);
+    }
+    $_SESSION["etredeconnecter"] = 1;
+
+
 ?>
 <!DOCTYPE html>
 <html class="h-100" lang="fr">
