@@ -33,7 +33,12 @@
                     $nombreTshirt = $nombreTshirt['nombre'];
                         $sql = "SELECT t.id, t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, a.prenom FROM teeshirts AS t 
                                 JOIN auteurs as a ON a.id = t.auteur
-                                WHERE t.Date_supp IS NULL
+                                WHERE t.Date_supp IS NULL AND Quantite_stock > 0 AND t.id != ALL (SELECT t.id   FROM teeshirts AS t 
+                                                                                                JOIN Teeshirt_Commande AS tc ON tc.ID_teeshirt = t.id
+                                                                                                JOIN auteurs as a ON a.id = t.auteur
+                                                                                                WHERE t.Date_supp IS NULL AND Quantite_stock > 0
+                                                                                                GROUP BY tc.ID_teeshirt ASC 
+                                                                                                LIMIT 3)
                                 ORDER BY RAND()
                                 LIMIT ".$article_A_Creer;
                         $aleatoire = $bdd-> query($sql);

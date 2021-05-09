@@ -1,17 +1,6 @@
 <?php
+session_start();
 include('Connexion_bdd.php');
-if(empty($_SESSION["deconnexion"])){
-    unset($_SESSION['idUtilisateur']);
-    unset($_SESSION['Nom']);
-    unset($_SESSION['Prenom']);
-    unset($_SESSION['Email']);
-    unset($_SESSION['Adresse']);
-    unset($_SESSION['CP']);
-    unset($_SESSION['MDP']);
-    unset($_SESSION['Ville']);
-    unset($_SESSION['Numero']);
-}
-unset($_SESSION['deconnexion']);
 function test_tout_est_remplie($val){
     $cestRemplie = true;
     foreach($val as $key => $v){
@@ -87,5 +76,42 @@ function verif_Stock($quantitevoulu, $quantiteStock){
     $resultat = (($quantitevoulu > 0) AND ($quantitevoulu < 5) AND ($quantiteStock >= $quantitevoulu)) ? true : false;
     return $resultat;
 }
-function VerifEmail ($email){
+function VerifCodePostal ($CP){
+    return (preg_match('/\d{4}/', $CP)) ? true : false;
+}
+function VerifNumero ($numero){
+    return (preg_match('/(\d{2,4})/', $numero)) ? true : false;
+}
+function VerifNom ($nom){
+    return (preg_match('/[a-z -]+/i', $nom)) ? true : false;
+}
+function modifier_stock_tshirt($bdd, $plusOUmoins, $differenceModification, $idTshirt){
+    $quantiteFinal = NULL;
+    $quantitePresente = $bdd->prepare("SELECT Quantite_stock, ID FROM teeshirts WHERE ID = :id");
+    $quantitePresente->execute(array(':id' => $idTshirt));
+    $quantitePresente = $quantitePresente->fetch();
+    $reponse = $bdd->prepare("UPDATE teeshirts SET Quantite_stock = ? WHERE ID = ?");
+    if($plusOUmoins == "+"){
+        $quantiteFinal = $quantitePresente[0] + $differenceModification;
+    }elseif($plusOUmoins == "-"){
+        $quantiteFinal = $quantitePresente[0] - $differenceModification;
+    }else{
+        return false;
+    }
+    if($quantiteFinal >= 0){
+        $reponse->execute(array($quantiteFinal, $idTshirt));
+        return true;   
+    }else{
+        return false;
+    }
+}
+function creationCommande($bdd, $idUtilisateur, array $tabmodele, array $tabteeshirt, array $tabtaille, array $tabquantite){
+    $creationCommande = $bdd->query("INSERT INTO commandes (Date_commande, Etat_Livraison) VALUES (NOW(), 1)");
+    $commandes = "commandes";
+    $recupID = maximumBDD ($bdd, $commandes);
+    $creationCommande = $bdd->prepare("INSERT INTO teeshirt_commande (ID_commande, ID_utilisateur, ID_modele, ID_teeshirt, ID_taille, Quantite_commande) VALUES (?,?,?,?,?,?)");
+    foreach($tabteeshirt as $k => $v){
+        $creationCommande->execute(array($recupID, $idUtilisateur, $tabmodele[$k], $tabteeshirt[$k], $tabtaille[$k], $tabquantite[$k]));
+    }
+
 }

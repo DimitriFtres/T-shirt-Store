@@ -1,5 +1,4 @@
 <?php
-session_start();
 include('fonctiondonnee.php');
 if((!empty($_POST["modifQ"])) AND (is_numeric($_POST["modifQ"])) AND isset($_GET["key"]) AND (isset($_POST["key"])) AND ($_POST["key"] === $_GET["key"])){
     $quantite_dispo = $bdd->prepare("SELECT Quantite_stock FROM teeshirts WHERE id = :id");
@@ -12,5 +11,6 @@ if((!empty($_POST["modifQ"])) AND (is_numeric($_POST["modifQ"])) AND isset($_GET
             header("Location: Panier.php?errorQ=true");
 
         }
-    }else{
-    }
+}else{
+    header("Location: index.php");
+}

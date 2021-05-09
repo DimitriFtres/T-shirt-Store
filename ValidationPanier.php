@@ -6,17 +6,51 @@
     }
     print_r($_SESSION);
     $connecte = false;
+    $message = false;
+    if((!empty($_GET["connecte"])) AND ($_GET["connecte"] === "ok") AND (!empty($_SESSION["idUtilisateur"]))){
+        $connecte = true;
+    }
+    if((!empty($_GET["inscription"])) AND ($_GET["inscription"] === "error")){
+        switch ($_GET["error"]){
+            case "adresse" :
+                $message = "Il y a une erreur dans votre adresse.";
+                break;
+            case "nom" : 
+                $message = "Il y a une erreur dans votre nom ou prénom.";
+                break;
+            case "numero" :
+                $message = "Il y a une erreur dans votre numero d'adresse.";
+                break;
+            case "cp" :
+                $message = "Il y a une erreur dans votre code postal.";
+                break;
+            case "present" :
+                $message = "Cette adresse mail est déjà utilisée.";
+                break;
+            case "tshirt" :
+                $message = "Il n'y a plus assez de stock pour le t-shirt ".$_GET["tshirt"].".";
+                break;
+            case "panier" :
+                $message = "Il y a un problème dans votre panier. Veuillez vérifer que toutes les informations nécessaires soit présentes.";
+                break;
+            case "modification" :
+                $message = "Il y a une erreur dans vos informations entrées.";
+                break;
+            default : 
+                $message = "Le système à rencontrer un problème.";
+                break;
+        }
+    }
 ?>
 <body>
     <div class="d-flex justify-content-around my-5 container flex-wrap">
-        <form method="POST" action="traitementNouveauCompte.php" class="d-flex flex-column background-light p-3 mb-4 border rounded">
+        <form method="POST" action="<?php echo ($connecte) ? "TraitementCréationDeCommande.php" : "traitementNouveauCompte.php" ?>" class="d-flex flex-column background-light p-3 mb-4 border rounded">
             <h2 class="align-self-center color-green">Vos coordonnées</h2>
             <?php
+            if($message) echo "<span>".$message."</span>";
             if((!empty($_GET["erreur"])) AND $_GET["erreur"] == 1){
                 echo "<h4>Vos informations sont incorrectes</h4>";
             }
-            if((!empty($_GET["connecte"])) AND ($_GET["connecte"] === "ok") AND (!empty($_SESSION["idUtilisateur"]))){
-                $connecte = true;            }
             ?>
             <div class="d-flex justify-content-between my-1 bold color-green">
                 <label class="m-0" for="Mail">Adresse mail :</label>
@@ -89,9 +123,7 @@
 
             <?php if(!$connecte): ?>
              <a href="index.php">Retourner à la page d'acceuil</a>
-             <?php endif; 
-                unset($_SESSION["etredeconnecter"]);
-            ?>
+             <?php endif;?>
         </div>
 
     </div> 

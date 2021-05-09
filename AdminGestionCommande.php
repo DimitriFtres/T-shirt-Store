@@ -23,13 +23,13 @@
             $nouvelEtat->execute(array($_POST["livrer"], $_GET["com"]));
     }
     $ancienID = '';
-    $commande = $bdd->query("SELECT tc.Quantite_commande, ta.Nom AS nomT_shirt, c.ID AS commandeID, c.ID_Utilisateur, c.Date_Livraison, c.Etat_Livraison, c.Date_commande, u.id, CONCAT(u.Nom, ' ', u.prenom) as utilisateurNom, t.Numero_de_reference, t.Nom, t.prix FROM commandes AS c 
-                             JOIN utilisateurs AS u ON u.id = c.ID_Utilisateur
+    $commande = $bdd->query("SELECT tc.Quantite_commande, ta.Nom AS nomT_shirt, c.ID AS commandeID, tc.ID_Utilisateur, c.Date_Livraison, c.Etat_Livraison, c.Date_commande, u.id, CONCAT(u.Nom, ' ', u.prenom) as utilisateurNom, t.Numero_de_reference, t.Nom, t.prix FROM commandes AS c 
                              JOIN teeshirt_commande AS tc ON tc.ID_commande = c.ID
                              JOIN teeshirts AS t ON t.id = tc.ID_teeshirt
+                             JOIN utilisateurs AS u ON u.id = tc.ID_Utilisateur
                              JOIN tailles AS ta ON ta.id = tc.ID_taille
                              WHERE tc.flag_annule = 0");
-    echo "<div class=\"d-flex flex-column container m-auto\">";
+    echo "<div class=\"d-flex flex-column container mx-auto mb-5\">";
     while($c = $commande ->fetch()){
         if($ancienID !== $c["commandeID"]){
             echo "<div class=\"d-flex justify-content-around mb-0 background align-items-center\">";
@@ -87,20 +87,4 @@
 ?>
 </body>
 </html>
-    <!--<article class="d-flex flex-column container m-auto">
-        <div class="row">
-            <div class="col"><p>Numéro de commandes</p></div>
-            <div class="col"><p>Date de création de la commande</p></div>
-            <div class="col"><p>Nom du client</p></div>
-            <div class="col">
-                <form action="" method="POST">
-                <label for="livrer">Livrée</label>
-                <input type="checkbox" name="livrer" id="livrer" value="livrer">
-                <input type="submit">
-                </form>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col"><p>Numéro de référence t-shirt</p></div>
-            <div class="col"><p>Nom du t-shirt</p></div>
-        </div>-->
+
