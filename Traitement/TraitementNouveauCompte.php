@@ -1,5 +1,5 @@
 <?php
-    include("fonctiondonnee.php");
+    include("../Function/fonctiondonnee.php");
     // verifie que nom,prenom,rue,ville soit que des lettres et que numero et codePOstal soit des nombres et verifie l'email
     if(isset($_POST["Créer"])){
         if((isset($_POST["Numero"])) AND (isset($_POST["CodePostal"])) AND (isset($_POST["Nom"])) AND (isset($_POST["Prenom"])) AND (isset($_POST["Rue"])) AND (isset($_POST["Ville"])) AND (filter_var($_POST["Mail"], FILTER_VALIDATE_EMAIL))){
@@ -21,24 +21,24 @@
                                         $_SESSION[$key] = $u[$key];
                                     }
                                 }   
-                                header("Location: ValidationPanier.php?connecte=ok");
+                                header("Location: ../ValidationPanier.php?connecte=ok");
                             }else{
-                                header("Location: ValidationPanier.php?inscription=error&error=present");
+                                header("Location: ../ValidationPanier.php?inscription=error&error=present");
                             }
                         }else{
-                            header("Location: ValidationPanier.php?inscription=error&error=adresse");
+                            header("Location: ../ValidationPanier.php?inscription=error&error=adresse");
                         }
                     }else{
-                        header("Location: ValidationPanier.php?inscription=error&error=nom");
+                        header("Location: ../ValidationPanier.php?inscription=error&error=nom");
                     }
                 }else{
-                    header("Location: ValidationPanier.php?inscription=error&error=numero");
+                    header("Location: ../ValidationPanier.php?inscription=error&error=numero");
                 }
             }else{
-                header("Location: ValidationPanier.php?inscription=error&error=cp");
+                header("Location: ../ValidationPanier.php?inscription=error&error=cp");
             }
         }else{
-            header("Location: ValidationPanier.php?erreur=1");
+            header("Location: ../ValidationPanier.php?erreur=1");
         }
     }else{
         echo "hello";

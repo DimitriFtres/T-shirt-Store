@@ -1,12 +1,12 @@
 <?php 
     session_start();
     if(!isset($_SESSION["id"])){
-        header("Location: ConnexionAdmin.php");
+        header("Location: ../ConnexionAdmin.php");
     }
-    include("Head.php");
+    include("../Head.php");
     include("AdminHeader.html");
     $table = "teeshirts";
-    require 'fonctiondonnee.php';
+    require '../Function/fonctiondonnee.php';
     if(empty($_GET["id"])){
         header('Location: AdminGestionT-shirt.php');
         exit;

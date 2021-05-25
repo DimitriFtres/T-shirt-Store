@@ -12,7 +12,7 @@
             <p class="h2 mt-3">Admin</p>
             <?php
                 if(isset($_SESSION["id"])){
-                    header("Location: AdminGestionT-shirt.php");
+                    header("Location: Administration/AdminGestionT-shirt.php");
                 }else {
                     if(isset($_GET["error"])){
                         echo "<p class=\"\">Vos identifiants sont incorrects</p>";
@@ -20,7 +20,7 @@
                 }
             ?>
             <div class="">
-                <form class="d-flex flex-column" action="TraitementConnexion.php" method="POST">
+                <form class="d-flex flex-column" action="Traitement/TraitementConnexion.php" method="POST">
                     <div class="d-flex justify-content-between my-2">
                         <label class="pr-2" for="email">Email :</label>
                         <input type="email" id="email" name="email">

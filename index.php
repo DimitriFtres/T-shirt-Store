@@ -9,7 +9,7 @@
             <div class="row">
                 <?php
                     /*-------------------------Style des articles t-shirt----------------------*/
-                    include("articles/Class_Article.php");
+                    include("Articles/Style_Article.php");
                     
                     /*--------------------------------Création des articles t-shirt------------------------*/
 
@@ -21,7 +21,7 @@
                                               LIMIT 3');
                     $article_Deja_Cree = 0;
                     while($e = $etiquette -> fetch()){
-                        include("articles/Creation_article.php");
+                        include("Articles/Creation_article.php");
                         $article_Deja_Cree++;
                     }
                     $article_A_Creer = 6-$article_Deja_Cree;
@@ -33,17 +33,29 @@
                     $nombreTshirt = $nombreTshirt['nombre'];
                         $sql = "SELECT t.id, t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, a.prenom FROM teeshirts AS t 
                                 JOIN auteurs as a ON a.id = t.auteur
-                                WHERE t.Date_supp IS NULL AND Quantite_stock > 0 AND t.id != ALL (SELECT t.id   FROM teeshirts AS t 
+                                WHERE t.Date_supp IS NULL AND Quantite_stock > 0 AND t.id != (SELECT t.id   FROM teeshirts AS t 
                                                                                                 JOIN Teeshirt_Commande AS tc ON tc.ID_teeshirt = t.id
                                                                                                 JOIN auteurs as a ON a.id = t.auteur
                                                                                                 WHERE t.Date_supp IS NULL AND Quantite_stock > 0
                                                                                                 GROUP BY tc.ID_teeshirt ASC 
-                                                                                                LIMIT 3)
-                                ORDER BY RAND()
+                                                                                                LIMIT 0,1)";
+                        $sql .= "AND t.id != (SELECT t.id   FROM teeshirts AS t 
+                        JOIN Teeshirt_Commande AS tc ON tc.ID_teeshirt = t.id
+                        JOIN auteurs as a ON a.id = t.auteur
+                        WHERE t.Date_supp IS NULL AND Quantite_stock > 0
+                        GROUP BY tc.ID_teeshirt ASC 
+                        LIMIT 1,1)";
+                        $sql .= "AND t.id != (SELECT t.id   FROM teeshirts AS t 
+                        JOIN Teeshirt_Commande AS tc ON tc.ID_teeshirt = t.id
+                        JOIN auteurs as a ON a.id = t.auteur
+                        WHERE t.Date_supp IS NULL AND Quantite_stock > 0
+                        GROUP BY tc.ID_teeshirt ASC 
+                        LIMIT 2,1)";
+                        $sql .= "ORDER BY RAND()
                                 LIMIT ".$article_A_Creer;
                         $aleatoire = $bdd-> query($sql);
                         while($e = $aleatoire->fetch()){
-                            include("articles/Creation_article.php");
+                            include("Articles/Creation_article.php");
                         }
                     echo "</div>";
                     /*fermer la connexion a la bdd*/

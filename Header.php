@@ -1,5 +1,5 @@
-<header class="">
-    <nav class="navbar navbar-expand-lg sticky-top justify-content-around background color-light">
+<header class="background">
+    <nav class="container navbar navbar-expand-lg sticky-top justify-content-around color-light">
         <a href="index.php"><img src="Image\Logo_tshirtstore.png" alt="Logo de t-shirt Store" class="logo-header navbar-brand"></a>
         <div class="collapse navbar-collapse justify-content-around container-md" id="navbarSupportedContent">
             <ul class="navbar-nav">

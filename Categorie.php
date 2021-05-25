@@ -1,6 +1,6 @@
 <?php
     include("Head.php");
-    include("articles/Class_Article.php");
+    include("Articles/Style_Article.php");
     ?>
 <body>
     <?php

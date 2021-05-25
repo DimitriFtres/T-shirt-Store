@@ -1,15 +1,15 @@
 <?php
     session_start();
     if(!isset($_SESSION["id"])){
-        header("Location: ConnexionAdmin.php");
+        header("Location: ../ConnexionAdmin.php");
     }
     $table = "teeshirts";
-    require 'fonctiondonnee.php';
+    require '../Function/fonctiondonnee.php';
     if(empty($_GET["id"])){
-        header('Location: traitementNouveauTshirt.php');
+        header('Location: ../traitement/traitementNouveauTshirt.php');
         exit;
     }elseif($_GET["id"] > maximumBDD($bdd, $table)){
-        header('Location: AdminGestionT-shirt.php?success=ko');  
+        header('Location: ../Administration/AdminGestionT-shirt.php?success=ko');  
         exit;
     }
     if((test_tout_est_remplie($_POST)) AND (empty($_FILES["image"])) OR (test_tout_est_remplie($_POST)) AND (is_numeric($_GET["id"]))){
@@ -48,13 +48,13 @@
                 
                 }
             }
-            header("Location: AdminGestionT-shirt.php?success=ok");
+            header("Location: ../Administration/AdminGestionT-shirt.php?success=ok");
             exit;
         }else{
-            header("Location: CreationTshirt.php?error2=&id=".htmlspecialchars($_GET["id"]));
+            header("Location: ../Administration/CreationTshirt.php?error2=&id=".htmlspecialchars($_GET["id"]));
             exit;
         }
     }else{
-        header("Location: CreationTshirt.php?error=1&id=".htmlspecialchars($_GET["id"]));
+        header("Location: ../Administration/CreationTshirt.php?error=1&id=".htmlspecialchars($_GET["id"]));
         exit;
     }

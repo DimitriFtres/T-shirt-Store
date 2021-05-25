@@ -1,11 +1,11 @@
 <?php
     session_start();
     if(!isset($_SESSION["id"])){
-        header("Location: ConnexionAdmin.php");
+        header("Location: ../ConnexionAdmin.php");
     }
     require('fonctiondonnee.php');
     if((!empty($_GET["id"])) AND (is_numeric($_GET["id"]))){ 
-        header("Location: traitementModificationTshirt.php?id=".htmlspecialchars($_GET["id"]));
+        header("Location: ../Traitement/traitementModificationTshirt.php?id=".htmlspecialchars($_GET["id"]));
     }
 
     if(test_tout_est_remplie($_POST)){
@@ -29,18 +29,18 @@
                     foreach($_POST["modele"] as $key => $value){
                         $NouveauModele ->execute(array(":modele" => $value, ":teeshirt" => $max[0]));
                     }
-                    header('Location: AdminGestionT-shirt.php');
+                    header('Location: ../Administration/AdminGestionT-shirt.php');
                 }else{
-                    header("Location: CreationTshirt.php?error=3");
+                    header("Location: ../Administration/CreationTshirt.php?error=3");
                 }
             }else{
-                header("Location: CreationTshirt.php?error=3");
+                header("Location: ../Administration/CreationTshirt.php?error=3");
             }
         }else{
-        header('Location: CreationTshirt.php?error=1');
+        header('Location: ../Administration/CreationTshirt.php?error=1');
         }
     }else{
-    header('Location: CreationTshirt.php?error=2');
+    header('Location: ../Administration/CreationTshirt.php?error=2');
     }
 
 ?>

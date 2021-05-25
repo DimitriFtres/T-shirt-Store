@@ -1,5 +1,5 @@
 <?php
-include('fonctiondonnee.php');
+include('../Function/Fonctiondonnee.php');
 if(isset($_POST["Changer"])){
     if((VerifCodePostal($_POST["CodePostal"])) AND (VerifNumero($_POST["Numero"])) AND (VerifNom ($_POST["Nom"])) AND (VerifNom ($_POST["Prenom"])) AND (VerifNom ($_POST["Rue"])) AND (VerifNom ($_POST["Ville"])) AND (filter_var($_POST["Mail"], FILTER_VALIDATE_EMAIL))){
         $StockRestantSuffisant = true;
@@ -38,7 +38,7 @@ if(isset($_POST["Changer"])){
                     //fontion creer une commande
                     creationCommande($bdd, $_SESSION["idUtilisateur"], $_SESSION["modele"], $_SESSION["idArticle"], $_SESSION["taille"], $_SESSION["quantite"]);
                     
-                    header('Location: Paiement.php');
+                    header('Location: ../Paiement.php');
                 }else{
 
                 }
@@ -46,14 +46,14 @@ if(isset($_POST["Changer"])){
                 $tshirtmanquant = $bdd->prepare("SELECT Nom FROM teeshirts WHERE ID = :id");
                 $tshirtmanquant->execute(array(":id" => $numero_du_tshirt_a_probleme));
                 $tshirtmanquant = $tshirtmanquant->fetch();
-                header("Location: ValidationPanier.php?connecte=ok&inscription=error&error=tshirt&tshirt=".urldecode($tshirtmanquant["Nom"]));
+                header("Location: ../ValidationPanier.php?connecte=ok&inscription=error&error=tshirt&tshirt=".urldecode($tshirtmanquant["Nom"]));
             }
         }else{
-            header("Location: ValidationPanier.php?connecte=ok&inscription=error&error=panier");
+            header("Location: ../ValidationPanier.php?connecte=ok&inscription=error&error=panier");
         }
     }else{
-        header("Location: ValidationPanier.php?connecte=ok&inscription=error&error=modification");
+        header("Location: ../ValidationPanier.php?connecte=ok&inscription=error&error=modification");
     }
 }else{
-    header("Location: index.php");
+    header("Location: ../Index.php");
 }

@@ -1,6 +1,6 @@
 <?php
 session_start();
-include('Connexion_bdd.php');
+include('../BDD/Connexion_bdd.php');
 function test_tout_est_remplie($val){
     $cestRemplie = true;
     foreach($val as $key => $v){

@@ -4,7 +4,6 @@
     if(empty($_SESSION["idArticle"])){
         header("Location: index.php");
     }
-    print_r($_SESSION);
     $connecte = false;
     $message = false;
     if((!empty($_GET["connecte"])) AND ($_GET["connecte"] === "ok") AND (!empty($_SESSION["idUtilisateur"]))){
@@ -44,7 +43,7 @@
 ?>
 <body>
     <div class="d-flex justify-content-around my-5 container flex-wrap">
-        <form method="POST" action="<?php echo ($connecte) ? "TraitementCréationDeCommande.php" : "traitementNouveauCompte.php" ?>" class="d-flex flex-column background-light p-3 mb-4 border rounded">
+        <form method="POST" action="<?php echo ($connecte) ? "Traitement/TraitementCréationDeCommande.php" : "Traitement/TraitementNouveauCompte.php" ?>" class="d-flex flex-column background-light p-3 mb-4 border rounded">
             <h2 class="align-self-center color-green">Vos coordonnées</h2>
             <?php
             if($message) echo "<span>".$message."</span>";
@@ -97,7 +96,7 @@
             if(!$connecte){
         ?>
         <div class="d-flex flex-column">
-            <form method="POST" action="TraitementConnexionClient.php" class="d-flex flex-column background-light p-3 border rounded align-self-start">
+            <form method="POST" action="Traitement/TraitementConnexionClient.php" class="d-flex flex-column background-light p-3 border rounded align-self-start">
                 <h2 class="align-self-center color-green">Déjà membre</h2>
                 <div class="d-flex justify-content-between my-1 bold color-green">
                     <label class="m-0" for="Mail">Adresse mail :</label>

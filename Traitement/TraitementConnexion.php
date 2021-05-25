@@ -1,6 +1,6 @@
 <?php
     session_start();
-    include("Connexion_bdd.php");
+    include("../BDD/Connexion_bdd.php");
 
     /*connexion a la base de donnée
     comparé les données entre elles
@@ -12,18 +12,16 @@
                 $admin -> execute(array($_POST["email"], $_POST["mdp"]));
                 if($admin -> rowCount() == 1){
                     $_SESSION["id"] = $admin->fetch();
-                    header("Location: AdminGestionT-shirt.php");
+                    header("Location: ../Administration/AdminGestionT-shirt.php");
                 }else{
-                    header("Location: ConnexionAdmin.php?error");
-                    exit;
+                    header("Location: ../ConnexionAdmin.php?error");
                 }
             }
         }else{
-            header("Location: ConnexionAdmin.php?error");
-            exit;
+            header("Location: ../ConnexionAdmin.php?error");
         }
     }else{
-        echo "<p class=\"h1 text-center my-5\">Vous vous êtes perdu ? Retournez sur la page d'acceuil <a href=\"index.php\"><\a></p>";
+        header("Location: ../Index.php");
     }
         
 ?>

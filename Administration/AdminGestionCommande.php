@@ -1,7 +1,7 @@
 <?php
-    include("Head.php");
+    include("../Head.php");
     if(!isset($_SESSION["id"])){
-        header("Location: ConnexionAdmin.php");
+        header("Location: ../ConnexionAdmin.php");
     }
     $annuler = false;
 ?>
@@ -23,7 +23,8 @@
             $nouvelEtat->execute(array($_POST["livrer"], $_GET["com"]));
     }
     $ancienID = '';
-    $commande = $bdd->query("SELECT tc.Quantite_commande, ta.Nom AS nomT_shirt, c.ID AS commandeID, tc.ID_Utilisateur, c.Date_Livraison, c.Etat_Livraison, c.Date_commande, u.id, CONCAT(u.Nom, ' ', u.prenom) as utilisateurNom, t.Numero_de_reference, t.Nom, t.prix FROM commandes AS c 
+    $i = 0;
+    $commande = $bdd->query("SELECT tc.Quantite_commande, ta.Nom AS nomT_shirt, tc.ID_commande AS commandeID, tc.ID_Utilisateur, c.Date_Livraison, c.Etat_Livraison, c.Date_commande, u.id, CONCAT(u.Nom, ' ', u.prenom) as utilisateurNom, u.Email, u.Adresse, u.CP, u.ville, u.Numero, t.Numero_de_reference, t.Nom, t.prix FROM commandes AS c 
                              JOIN teeshirt_commande AS tc ON tc.ID_commande = c.ID
                              JOIN teeshirts AS t ON t.id = tc.ID_teeshirt
                              JOIN utilisateurs AS u ON u.id = tc.ID_Utilisateur
@@ -35,7 +36,6 @@
             echo "<div class=\"d-flex justify-content-around mb-0 background align-items-center\">";
             echo "<div class=\"col-1\"><p class=\"pl-2 py-1 mb-0 color-light\">".$c["commandeID"]."</p></div>";
             echo "<div class=\"col-3\"><p class=\"pl-2 py-1 mb-0 color-light\">".$c["Date_commande"]."</p></div>";
-            echo "<div class=\"col-3\"><p class=\"pl-2 py-1 mb-0 color-light\">".$c["utilisateurNom"]."</p></div>";
             echo "<div class=\"col-5\">
                     <form action=\"?com=".$c["commandeID"]."\" method=\"POST\" class=\"pl-2 py-1 mb-0 color-light d-flex align-items-center justify-content-around flex-wrap\">
                         <select name=\"livrer\" id=\"livrer\">";
@@ -61,6 +61,14 @@
                         </form>
                       </div>";
             }
+            echo "<div class=\"d-flex flex-wrap justify-content-around mb-0 background align-items-center\">";
+            echo "<div class=\"col-4 col-lg-2\"><p class=\"pl-2 py-1 mb-0 color-light\">".$c["utilisateurNom"]."</p></div>";
+            echo "<div class=\"col-5 col-lg-3\"><p class=\"pl-2 py-1 mb-0 color-light\">".$c["Email"]."</p></div>";
+            echo "<div class=\"col-3 col-lg-2\"><p class=\"pl-2 py-1 mb-0 color-light\">".$c["ville"]."</p></div>";
+            echo "<div class=\"col-2 col-lg-1\"><p class=\"pl-2 py-1 mb-0 color-light\">".$c["CP"]."</p></div>";
+            echo "<div class=\"col-8 col-lg-3\"><p class=\"pl-2 py-1 mb-0 color-light\">".$c["Adresse"]."</p></div>";
+            echo "<div class=\"col-2 col-lg-1\"><p class=\"pl-2 py-1 mb-0 color-light\">".$c["Numero"]."</p></div>";
+            echo "</div>";
             echo "  <div class=\"d-flex justify-content-around mb-0 background-light align-items-center border\">
                         <div class=\"col\"><p class=\"pl-2 py-1 mb-0 color-green\">".$c["Quantite_commande"]."X ".$c["Numero_de_reference"]."</p></div>
                         <div class=\"col\"><p class=\"pl-2 py-1 mb-0 color-green\">".$c["Nom"]."</p></div>
@@ -68,15 +76,16 @@
                         <div class=\"col\"><p class=\"pl-2 py-1 mb-0 color-green\">".$c["nomT_shirt"]."</p></div>
                     </div>";
         }else{
-            echo "  <div class=\"d-flex justify-content-around mb-0 background-light align-items-center border\">
-                        <div class=\"col\"><p class=\"pl-2 py-1 mb-0 color-green\">".$c["Quantite_commande"]."X ".$c["Numero_de_reference"]."</p></div>
-                        <div class=\"col\"><p class=\"pl-2 py-1 mb-0 color-green\">".$c["Nom"]."</p></div>
-                        <div class=\"col\"><p class=\"pl-2 py-1 mb-0 color-green\">".$c["prix"]."€</p></div>
-                        <div class=\"col\"><p class=\"pl-2 py-1 mb-0 color-green\">".$c["nomT_shirt"]."</p></div>
-                    </div>";
+                echo "  <div class=\"d-flex justify-content-around mb-0 background-light align-items-center border\">
+                <div class=\"col\"><p class=\"pl-2 py-1 mb-0 color-green\">".$c["Quantite_commande"]."X ".$c["Numero_de_reference"]."</p></div>
+                <div class=\"col\"><p class=\"pl-2 py-1 mb-0 color-green\">".$c["Nom"]."</p></div>
+                <div class=\"col\"><p class=\"pl-2 py-1 mb-0 color-green\">".$c["prix"]."€</p></div>
+                <div class=\"col\"><p class=\"pl-2 py-1 mb-0 color-green\">".$c["nomT_shirt"]."</p></div>
+                </div>";    
         }
         $ancienID = $c["commandeID"];
     }
+    
     echo "</div>";
 
 

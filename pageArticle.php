@@ -4,7 +4,6 @@
 <body>
 <?php
     include("Header.php");
-    print_r($_SESSION);
 ?>
 
 <?php
@@ -20,7 +19,7 @@
                     <h1 class=\"\">".$a["Nom"]."</h1>
                     <h2 class=\"\">".$a["nomComplet"]."</h2>
                     <p class=\"\">".$a["Prix"]."€</p>
-                    <form action=\"traitementPanier.php?idArticle=".$_GET["idArticle"]."\" method=\"POST\" class=\"text-left align-self-center\">
+                    <form action=\"Traitement/TraitementPanier.php?idArticle=".$_GET["idArticle"]."\" method=\"POST\" class=\"text-left align-self-center\">
                     <div class=\"row mb-2 justify-content-center\">
                     <label for=\"taille\" class=\"col-6\">Taille :</label>
                     <select name=\"taille\" id=\"taille\" class=\"col-3\">";
@@ -29,7 +28,7 @@
                                         WHERE ID_Teeshirt = :id");
                 $taille->execute(array(':id' => $_GET["idArticle"]));
                     while($t = $taille->fetch()){
-                    echo "<option value=\"".$t["id"]."\">".$t["Nom"]."</option>";
+                    echo "<option value=\"".$t["Nom"]."\">".$t["Nom"]."</option>";
                     }
                     echo"</select>
                         </div>
@@ -41,7 +40,7 @@
                                         WHERE ID_Teeshirt = :id");
                 $modele->execute(array(':id' => $_GET["idArticle"]));
                     while($m = $modele->fetch()){
-                    echo "<option value=\"".$m["id"]."\">".$m["modele"]."</option>";
+                    echo "<option value=\"".$m["modele"]."\">".$m["modele"]."</option>";
                     }
                     echo"</select>
                         </div>

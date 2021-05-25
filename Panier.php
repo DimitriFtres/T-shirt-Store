@@ -1,6 +1,5 @@
 <?php
     include("Head.php");
-    print_r($_SESSION);
 ?>
 <body>
 <?php
@@ -30,16 +29,15 @@
             if(!empty($_SESSION["idArticle"])){
                 $nomTaille = "";
                 foreach($_SESSION["idArticle"] as $key => $value){
-                    $taille = $bdd->prepare("SELECT Nom FROM tailles WHERE ID = :idtaille");
-                    $taille->execute(array(':idtaille' => $_SESSION["taille"][$key]));
-                    if($t = $taille->fetch()){
-                        $nomTaille = $t["Nom"];
+                    if(!empty($_SESSION["taille"])){
+                        $nomTaille = $_SESSION["taille"][$key];
                     }
                     $articlePanier = $bdd -> prepare("SELECT id, Image, Nom, Prix FROM Teeshirts WHERE id = :id");
                     if($articlePanier -> execute(array(':id' => $value))){
                         if($aP = $articlePanier -> fetch()){
                             $total = $total + ($aP["Prix"] * $_SESSION["quantite"][$key]);
                             $totalParArticle = $aP["Prix"] * $_SESSION["quantite"][$key];
+                            $_SESSION["totalParArticle"][] = $totalParArticle;
                             echo "<div class=\"row mx-auto background-light mb-2 rounded\">
                             <div class=\"col-3 col-md-2 px-0\">
                             <img src=\"".$aP["Image"]."\" alt=\"Image du t-shirt\" class=\"img-panier m-auto\">
@@ -47,6 +45,7 @@
                             <div class=\"col-4 col-md-2 px-0 d-flex align-items-center justify-content-center\">
                             <div>
                             <p class=\"m-auto\">".$aP["Nom"]." ".$nomTaille."</p>
+                            <p class=\"m-auto text-center\">".$_SESSION["modele"][$key][0]."</p>
                             </div>
                             </div>
                             <div class=\"col-5 col-md-3 px-0 d-flex align-items-center justify-content-center\">
@@ -55,7 +54,7 @@
                             </div>
                             </div>
                             <div class=\"col-5 col-md-2 px-0 d-flex align-items-center justify-content-center\">
-                            <form action=\"ModifQuantitePanier.php?key=".$key."\" method=\"POST\">
+                            <form action=\"Traitement/ModifQuantitePanier.php?key=".$key."\" method=\"POST\">
                                 <input type=\"hidden\" class=\"hidden\" value=\"".$key."\" name=\"key\"/>
                                 <input class=\"\"type=\"number\" max=\"4\" min=\"1\" name=\"modifQ\" Value=\"".$_SESSION["quantite"][$key]."\">
                                 <input class=\"\"type=\"submit\" value=\"Changer\">";
@@ -87,6 +86,7 @@
             if(!empty($_SESSION["idArticle"])){
                 $tva = $total/100*21;
                 $tva = round($tva, 2);
+                $_SESSION["totalPanier"]= $total;
                 echo "<div class=\"row mt-5 container mx-0\">
                       <div class=\"col-3 col-md-4 px-0 text-danger h4 d-flex align-items-center mb-0\">
                       <div>
