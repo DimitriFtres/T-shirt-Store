@@ -1,6 +1,6 @@
 <?php
-    include("../Head.php");
-    if(!isset($_SESSION["id"])){
+    include("AdminHead.php");
+    if(empty($_SESSION["id"])){
         header("Location: ../ConnexionAdmin.php");
     }
     $idValide = false;

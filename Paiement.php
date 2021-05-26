@@ -1,6 +1,9 @@
 <?php
 include('Head.php');
-include('Header.php');
+?>
+<body>
+<?php
+    include('Header.php');
 ?>
 <h1 class="text-center my-5">Merci pour votre commande</h1>
 <section class="container">

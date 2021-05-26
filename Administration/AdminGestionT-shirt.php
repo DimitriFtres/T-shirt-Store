@@ -1,5 +1,5 @@
 <?php
-    include("../Head.php");
+    include("AdminHead.php");
     if(empty($_SESSION["id"])){
         header("Location: ../ConnexionAdmin.php");
     }
@@ -18,7 +18,8 @@
         WHERE t.date_supp IS NULL
         ');
         echo "<div class=\"container d-flex flex-column\">";
-        echo "<a class=\"color-light background py-1 px-2 rounded align-self-end mb-3\" href=\"CreationTshirt.php\">Ajouter un nouveau t-shirt</a>";
+        echo "<div class=\"ml-auto my-3\"><a class=\"color-light background py-1 px-2 rounded align-self-end mb-3 mx-3\" href=\"gestionCTAM.php\">Gestion des auteurs, catégories,...</a>";
+        echo "<a class=\"color-light background py-1 px-2 rounded align-self-end mb-3\" href=\"CreationTshirt.php\">Ajouter un nouveau t-shirt</a></div>";
         while($list = $tshirt -> fetch()){
             echo "<div class=\"d-flex justify-content-around mb-2 background align-items-center rounded\">
                     <div class=\"w-75 d-flex justify-content-between\">

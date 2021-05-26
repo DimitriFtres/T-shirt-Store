@@ -13,7 +13,7 @@
                     
                     /*--------------------------------Création des articles t-shirt------------------------*/
 
-                    $etiquette = $bdd->query('SELECT t.id, t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, a.prenom, COUNT(tc.ID_teeshirt) AS position FROM teeshirts AS t 
+                    $etiquette = $bdd->query('SELECT t.id, t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, COUNT(tc.ID_teeshirt) AS position FROM teeshirts AS t 
                                               JOIN Teeshirt_Commande AS tc ON tc.ID_teeshirt = t.id
                                               JOIN auteurs as a ON a.id = t.auteur
                                               WHERE t.Date_supp IS NULL AND Quantite_stock > 0
@@ -31,23 +31,20 @@
                     $nombreTshirt = $bdd->query('SELECT count(id) as nombre FROM teeshirts WHERE Date_supp IS NULL');
                     $nombreTshirt = $nombreTshirt->fetch();
                     $nombreTshirt = $nombreTshirt['nombre'];
-                        $sql = "SELECT t.id, t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, a.prenom FROM teeshirts AS t 
+                        $sql = "SELECT t.id, t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom FROM teeshirts AS t 
                                 JOIN auteurs as a ON a.id = t.auteur
                                 WHERE t.Date_supp IS NULL AND Quantite_stock > 0 AND t.id != (SELECT t.id   FROM teeshirts AS t 
                                                                                                 JOIN Teeshirt_Commande AS tc ON tc.ID_teeshirt = t.id
-                                                                                                JOIN auteurs as a ON a.id = t.auteur
                                                                                                 WHERE t.Date_supp IS NULL AND Quantite_stock > 0
                                                                                                 GROUP BY tc.ID_teeshirt ASC 
                                                                                                 LIMIT 0,1)";
                         $sql .= "AND t.id != (SELECT t.id   FROM teeshirts AS t 
                         JOIN Teeshirt_Commande AS tc ON tc.ID_teeshirt = t.id
-                        JOIN auteurs as a ON a.id = t.auteur
                         WHERE t.Date_supp IS NULL AND Quantite_stock > 0
                         GROUP BY tc.ID_teeshirt ASC 
                         LIMIT 1,1)";
                         $sql .= "AND t.id != (SELECT t.id   FROM teeshirts AS t 
                         JOIN Teeshirt_Commande AS tc ON tc.ID_teeshirt = t.id
-                        JOIN auteurs as a ON a.id = t.auteur
                         WHERE t.Date_supp IS NULL AND Quantite_stock > 0
                         GROUP BY tc.ID_teeshirt ASC 
                         LIMIT 2,1)";

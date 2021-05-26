@@ -13,4 +13,5 @@
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
         <link href="/t-shirt store projet/t-shirt-store/css/style.css" type="text/css" rel="stylesheet">
         <title>T-shirt Store</title>
-    </head>
+        <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>    </head>
+        <script src="script.js"></script>
