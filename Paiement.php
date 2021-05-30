@@ -23,14 +23,6 @@ $message = "
         <p>Votre commande sera livrée lorsque votre paiement de ".$_SESSION["totalPanier"]."€ sera reçu sur le compte en banque BE65 9584 1235 4578. Veuillez mettre votre nom et prénom ainsi que votre adresse dans la communication libre. Vos informations ne peuvent pas être différentes de celles que vous avez entrées.</p>
         <p>Voici un résumé de votre commande : </p>
         <table>";
-        // <tr>
-        // <td>nom du t-shirt</td>
-        // <td>Taille du t-shirt</td>
-        // <td>Modele du t-shirt</td>
-        // <td>Quantite commandé</td> 
-        // <td>prix total</td>
-        // </tr>
-        ;
 foreach($_SESSION["idArticle"] as $k => $v){
     $message .= "<tr><td>".$_SESSION["NomTshirt"][$k]."</td>
         <td>".$_SESSION["taille"][$k]."</td>
@@ -38,17 +30,16 @@ foreach($_SESSION["idArticle"] as $k => $v){
         <td>".$_SESSION["quantite"][$k]."X</td>
         <td>".$_SESSION["PrixTshirt"][$k]."€</td>
         <td>".$_SESSION["totalParArticle"][$k]."€</td>
-        </tr>"; //nom t-shirt et prixpart-shirt n'existent pas
+        </tr>";
 }
 $message .= "</table>
 </body>
 </html>";
-echo $message;
 $message = wordwrap($message, 70, "\r\n");
 $headers = "MIME-Version: 1.0"."\r\n". 
 "Content-type: text/html; charset=iso-8859-1"."\r\n". 
-"From: webmaster@example.com" . "\r\n" .
-"Reply-To: webmaster@example.com" . "\r\n" .
+"From: contact@tshirtstore.com" . "\r\n" .
+"Reply-To: contact@tshirtstore.com" . "\r\n" .
 "X-Mailer: PHP/" . phpversion();
 
 mail($to, $subject, $message, $headers);

@@ -18,7 +18,7 @@
                 }
                 if($seulementLestablesVoulus){
                 $table = $separateur[1]."s";
-                $supprimer = $bdd->prepare("DELETE FROM ".$table." WHERE ID = :id");
+                $supprimer = $bdd->prepare("UPDATE ".$table." SET Flag_sup = true WHERE ID = :id");
                 $supprimer->bindValue(':id', $value, PDO::PARAM_INT);
                 $supprimer->execute();
                 }

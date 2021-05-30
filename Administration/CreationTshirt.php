@@ -62,7 +62,7 @@
                 
     ?>
     <div class="row mt-4 container mx-auto">
-        <form class="col-12 col-md-9 col-lg-6 m-auto" action="<?php echo (!empty($_GET["id"])) ? "../traitement/traitementModificationTshirt.php?id=".htmlspecialchars($_GET["id"]) : "traitementNouveauTshirt.php";  ?>" method="post" enctype="multipart/form-data">
+        <form class="col-12 col-md-9 col-lg-6 m-auto" action="<?php echo (!empty($_GET["id"])) ? "../Traitement/TraitementModificationTshirt.php?id=".htmlspecialchars($_GET["id"]) : "../Traitement/TraitementNouveauTshirt.php";  ?>" method="post" enctype="multipart/form-data">
             <div class="d-flex justify-content-between mb-3">
                 <label for="reference">Numéro de référence :</label>
                 <input type="text" id="reference" name="numero_de_reference" value="<?= $modification["Numero_de_reference"] ?>">

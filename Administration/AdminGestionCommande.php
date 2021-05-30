@@ -24,7 +24,8 @@
     }
     $ancienID = '';
     $i = 0;
-    $commande = $bdd->query("SELECT tc.Quantite_commande, ta.Nom AS nomT_shirt, tc.ID_commande AS commandeID, tc.ID_Utilisateur, c.Date_Livraison, c.Etat_Livraison, c.Date_commande, u.id, CONCAT(u.Nom, ' ', u.prenom) as utilisateurNom, u.Email, u.Adresse, u.CP, u.ville, u.Numero, t.Numero_de_reference, t.Nom, t.prix FROM commandes AS c 
+    $commande = $bdd->query("SELECT tc.Quantite_commande, ta.Nom AS nomT_shirt, tc.ID_commande AS commandeID, tc.ID_Utilisateur, c.Date_Livraison, c.Etat_Livraison, 
+                             c.Date_commande, u.id, u.Nom as utilisateurNom, u.Email, u.Adresse, u.CP, u.ville, u.Numero, t.Numero_de_reference, t.Nom, t.prix FROM commandes AS c 
                              JOIN teeshirt_commande AS tc ON tc.ID_commande = c.ID
                              JOIN teeshirts AS t ON t.id = tc.ID_teeshirt
                              JOIN utilisateurs AS u ON u.id = tc.ID_Utilisateur

@@ -1,14 +1,16 @@
 <?php
     include("Head.php");
     include("Articles/Style_Article.php");
-    
-    ?>
+?>
+</head>
 <body>
     <?php
         include("Header.php");
         if(isset($_GET["cat"])){
             $compteur = $bdd->prepare("SELECT count(t.id) as maxi FROM teeshirts as t
                                      JOIN categories as c on c.id = t.categorie
+                                     JOIN tailles_disponible AS td ON td.ID_Teeshirt = t.ID
+                                     JOIN tailles AS ta ON ta.id = td.ID_Taille
                                      WHERE c.nom = :cat AND c.Flag_supp is NULL AND t.Date_supp IS NULL");
             $compteur->execute(array(":cat" => $_GET["cat"]));
             $nombre_de_Tshirt = $compteur->fetch();
@@ -23,11 +25,13 @@
             if(!empty($_GET["page"])){
                 $debut_Selection_Tshirt = intval($_GET["page"])*6;
             }
-            $categorie = $bdd->prepare("SELECT t.id, t.nom, t.URL, t.Image, t.Prix, a.nom as auteur_nom, a.prenom FROM teeshirts AS t 
-                                      JOIN auteurs as a ON a.id = t.auteur
-                                      JOIN categories as c on c.id = t.categorie
-                                      WHERE c.nom = :cat AND c.Flag_supp is NULL AND t.Date_supp IS NULL
-                                      LIMIT :num ,6
+            $categorie = $bdd->prepare("SELECT t.id, t.nom, t.Image, t.Prix, a.nom as auteur_nom FROM teeshirts AS t 
+                                        JOIN auteurs as a ON a.id = t.auteur
+                                        JOIN categories as c on c.id = t.categorie
+                                        JOIN tailles_disponible AS td ON td.ID_Teeshirt = t.ID
+                                        JOIN tailles AS ta ON ta.id = td.ID_Taille
+                                        WHERE c.nom = :cat AND c.Flag_supp is NULL AND t.Date_supp IS NULL
+                                        LIMIT :num ,6
                                       ");
             $categorie->bindValue(':cat', $_GET["cat"], PDO::PARAM_STR);
             $categorie->bindValue(':num', $debut_Selection_Tshirt, PDO::PARAM_INT);
@@ -37,7 +41,7 @@
                 <div class=\"container mt-5 pt-5\">
                 <div class=\"row\">";
                 while($e = $categorie -> fetch()){
-                    require("articles/Creation_Article.php");
+                    require("Articles/Creation_Article.php");
                 }
                 echo "</div></div>";
             }else{
