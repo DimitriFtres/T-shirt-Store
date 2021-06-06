@@ -9,7 +9,7 @@
 
 <?php
     if((!empty($_GET["idArticle"])) AND (is_numeric($_GET["idArticle"]))){
-        $article = $bdd->prepare("SELECT t.Nom, t.Prix, t.Image, t.Description, t.Auteur, CONCAT(a.nom, ' ', a.prenom) AS nomComplet FROM teeshirts as t
+        $article = $bdd->prepare("SELECT t.Nom, t.Prix, t.Image, t.Description, t.Auteur, a.nom AS nomComplet FROM teeshirts as t
                         JOIN auteurs AS a ON t.auteur = a.id
                         WHERE t.ID = :id AND Date_supp IS NULL AND quantite_stock > 0");
         if($article->execute(array(':id' => $_GET["idArticle"]))){

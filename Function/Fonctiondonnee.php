@@ -41,7 +41,7 @@ function modifierBDD($bdd, $nomtable, $id, $tableauAChanger, $champautre, $champ
     }
 }
 function imagetest($image){
-    $target_dir = "../uploads2/";
+    $target_dir = "../Uploads/";
     $target_file = $target_dir . basename($image["name"]);
     $uploadOk = 1;
     $retour = 0;
@@ -52,17 +52,15 @@ function imagetest($image){
         $uploadOk = 0;
     }
     //Check if image file is a actual image or fake image
-    $check = getimagesize($image["tmp_name"]);
+    $check = getimagesize("file://".$image["tmp_name"]);
     if($check === 0) {
         $uploadOk = 0;
     }
     if($uploadOk === 1){
         move_uploaded_file($image["tmp_name"], $target_file);
         $retour = [1, $target_file];
-        return $retour;
-    }else {
-        return $retour;
     }
+        return $retour;
 
 }
 function maximumBDD ($bdd, $nomtable){
