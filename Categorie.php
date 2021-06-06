@@ -11,7 +11,8 @@
                                      JOIN categories as c on c.id = t.categorie
                                      JOIN tailles_disponible AS td ON td.ID_Teeshirt = t.ID
                                      JOIN tailles AS ta ON ta.id = td.ID_Taille
-                                     WHERE c.nom = :cat AND c.Flag_supp is NULL AND t.Date_supp IS NULL");
+                                     WHERE c.nom = :cat AND c.Flag_sup = 0 AND t.Date_supp IS NULL
+                                     GROUP BY td.ID_Teeshirt");
             $compteur->execute(array(":cat" => $_GET["cat"]));
             $nombre_de_Tshirt = $compteur->fetch();
             $nombre_de_page = ceil($nombre_de_Tshirt["maxi"]/6);
@@ -26,11 +27,9 @@
                 $debut_Selection_Tshirt = intval($_GET["page"])*6;
             }
             $categorie = $bdd->prepare("SELECT t.id, t.nom, t.Image, t.Prix, a.nom as auteur_nom FROM teeshirts AS t 
-                                        JOIN auteurs as a ON a.id = t.auteur
-                                        JOIN categories as c on c.id = t.categorie
-                                        JOIN tailles_disponible AS td ON td.ID_Teeshirt = t.ID
-                                        JOIN tailles AS ta ON ta.id = td.ID_Taille
-                                        WHERE c.nom = :cat AND c.Flag_supp is NULL AND t.Date_supp IS NULL
+                                        JOIN auteurs as a ON a.id = t.Auteur
+                                        JOIN categories as c on c.id = t.Categorie
+                                        WHERE c.nom = :cat AND c.Flag_sup = 0 AND t.Date_supp IS NULL
                                         LIMIT :num ,6
                                       ");
             $categorie->bindValue(':cat', $_GET["cat"], PDO::PARAM_STR);
@@ -45,7 +44,7 @@
                 }
                 echo "</div></div>";
             }else{
-                echo "<p class=\"h1 text-center my-5\">Attendez... Quelle catégorie ?</p>";
+                echo "<p class=\"h1 text-center my-5\">Catégorie vide.</p>";
             }
                       
         }else{

@@ -14,7 +14,6 @@
     if((test_tout_est_remplie($_POST)) AND (empty($_FILES["image"])) OR (test_tout_est_remplie($_POST)) AND (is_numeric($_GET["id"]))){
         $nouveau = $bdd->prepare("UPDATE teeshirts SET
                                   Nom = ?,
-                                  Numero_de_reference = ?,
                                   Prix = ?,
                                   Quantite_stock = ?,
                                   Description = ?,
@@ -22,9 +21,9 @@
                                   Auteur = ?
                                   WHERE ID = ?
                                   ");
-        numerique($_POST["quantite"]);
-        numerique($_POST['prix']);
-        if($nouveau ->execute(array($_POST["nom"], $_POST["numero_de_reference"], $_POST["prix"], $_POST["quantite"], $_POST["description"], $_POST["categorie"], $_POST["auteur"], $_GET["id"]))){
+        $_POST["quantite"] = numerique($_POST["quantite"]);
+        $_POST["prix"] = rendre_le_prix_float($_POST["prix"]);
+        if($nouveau ->execute(array($_POST["nom"], $_POST["prix"], $_POST["quantite"], $_POST["description"], $_POST["categorie"], $_POST["auteur"], $_GET["id"]))){
             $t = "tailles_disponible";
             $id = $_GET["id"];
             $tab = $_POST["taille"];
@@ -53,6 +52,7 @@
             header("Location: ../Administration/CreationTshirt.php?error2=&id=".htmlspecialchars($_GET["id"]));
             exit;
         }
+        
     }else{
         header("Location: ../Administration/CreationTshirt.php?error=1&id=".htmlspecialchars($_GET["id"]));
         exit;

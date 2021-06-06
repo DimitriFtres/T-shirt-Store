@@ -18,17 +18,18 @@
         if($mail_Present_dans_la_BDD->rowCount() === 1){
             $longueur_MDP = rand(8,14);
             $nouveau_MDP = kodex_random_string($longueur_MDP);
+            $nouveauMDPCryper = hash("sha256", $nouveau_MDP);
             $to = $_POST["Mail"];
             $subject = "Nouveau mot de passe";
             $message = "Votre nouveau mot de passe est :".$nouveau_MDP;
             $headers = "MIME-Version: 1.0"."\r\n". 
-            "Content-type: text/html; charset=iso-8859-1"."\r\n". 
+            "Content-type: text/html; charset=UTF-8"."\r\n". 
             "From: webmaster@example.com" . "\r\n" .
             "Reply-To: webmaster@example.com" . "\r\n" .
             "X-Mailer: PHP/" . phpversion();
             if(mail($to, $subject, $message, $headers)){
                 $MDP_a_Actualiser = $bdd->prepare("UPDATE utilisateurs SET MDP = ? WHERE Email = ?");
-                $MDP_a_Actualiser->execute(array($nouveau_MDP, $_POST["Mail"]));
+                $MDP_a_Actualiser->execute(array($nouveauMDPCryper, $_POST["Mail"]));
             }
 
         }

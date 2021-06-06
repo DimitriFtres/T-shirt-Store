@@ -1,9 +1,9 @@
 <?php
 echo "<div ".$classDivEtiquette.">
 <a href=\"pageArticle.php?idArticle=".utf8_encode($e["id"])."\" ".$classAEtiquette.">
-<img ".$classimgEtiquette." src=\"".$e['Image']."\">
-<p ".$classNomTShirtEtiquette.">".$e['nom']."</p>
-<p ".$classAuteurEtiquette.">".$e['auteur_nom']."</p>
+<img alt=\"T-shirt personnalisé t-shirt-store\" ".$classimgEtiquette." src=\"".$e['Image']."\">
+<h2 ".$classNomTShirtEtiquette.">".$e['nom']."</h2>
+<h3 ".$classAuteurEtiquette.">".$e['auteur_nom']."</h3>
 </a></div>";
 ?>
 

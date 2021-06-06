@@ -1,6 +1,7 @@
 <?php
     include("Head.php");
 ?>
+</head>
 <body>
 <?php
     include("Header.php");

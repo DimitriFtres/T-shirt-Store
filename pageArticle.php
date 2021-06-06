@@ -1,6 +1,7 @@
 <?php
     include("Head.php");
 ?>
+</head>
 <body>
 <?php
     include("Header.php");
@@ -14,10 +15,10 @@
         if($article->execute(array(':id' => $_GET["idArticle"]))){
             if($a = $article->fetch()){
                 echo "<div class=\"row m-0\">
-                    <div class=\"col-9 col-sm-7 col-md-5 col-lg-4 col-xl-3 mx-auto text-center color-green\">
+                    <div class=\"col-9 col-sm-7 col-md-5 col-lg-4 col-xl-3 mx-auto text-center\">
                     <img src=\"".$a["Image"]."\" alt=\"\" class=\"img-fluid\">
-                    <h1 class=\"\">".$a["Nom"]."</h1>
-                    <h2 class=\"\">".$a["nomComplet"]."</h2>
+                    <h1 class=\"color-green\">".$a["Nom"]."</h1>
+                    <h2 class=\"color-green\">".$a["nomComplet"]."</h2>
                     <p class=\"\">".$a["Prix"]."€</p>
                     <form action=\"Traitement/TraitementPanier.php?idArticle=".$_GET["idArticle"]."\" method=\"POST\" class=\"text-left align-self-center\">
                     <div class=\"row mb-2 justify-content-center\">
@@ -25,10 +26,10 @@
                     <select name=\"taille\" id=\"taille\" class=\"col-3\">";
                 $taille = $bdd->prepare("SELECT t.id, t.Nom FROM tailles AS t
                                         JOIN tailles_disponible AS td ON td.ID_taille = t.ID
-                                        WHERE ID_Teeshirt = :id");
+                                        WHERE ID_Teeshirt = :id AND Flag_sup = 0");
                 $taille->execute(array(':id' => $_GET["idArticle"]));
                     while($t = $taille->fetch()){
-                    echo "<option value=\"".$t["Nom"]."\">".$t["Nom"]."</option>";
+                    echo "<option value=\"".$t["id"]."\">".$t["Nom"]."</option>";
                     }
                     echo"</select>
                         </div>
@@ -37,10 +38,10 @@
                         <select name=\"modele\" id=\"modele\" class=\"col-3\">";
                 $modele = $bdd->prepare("SELECT m.id, m.modele FROM modeles AS m
                                         JOIN modele_disponible AS md ON md.ID_modele = m.ID
-                                        WHERE ID_Teeshirt = :id");
+                                        WHERE ID_Teeshirt = :id AND Flag_sup = 0");
                 $modele->execute(array(':id' => $_GET["idArticle"]));
                     while($m = $modele->fetch()){
-                    echo "<option value=\"".$m["modele"]."\">".$m["modele"]."</option>";
+                    echo "<option value=\"".$m["id"]."\">".$m["modele"]."</option>";
                     }
                     echo"</select>
                         </div>

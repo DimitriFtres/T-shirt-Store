@@ -10,7 +10,15 @@
     include("AdminHeader.html");
     if(!empty($_POST["oui"])){
         $comAnnule = $bdd->prepare("UPDATE teeshirt_commande SET flag_annule = 1 WHERE ID_commande = :id");
-        $comAnnule = $comAnnule->execute(array("id" => $_GET["com"]));
+        $comAnnule = $comAnnule->execute(array(":id" => $_GET["com"]));
+        $rechercheQuantite = $bdd->prepare("SELECT ID_teeshirt, Quantite_commande FROM teeshirt_commande WHERE ID_commande = :id");
+        $rechercheQuantite->execute(array(":id" => $_GET["com"]));
+        while($resultatsStock = $rechercheQuantite->fetch()){
+            $remettreLaQuantiteDansLeStock = $bdd->prepare("UPDATE teeshirts SET Quantite_stock = Quantite_stock + :quantite  WHERE ID = :id");
+            $remettreLaQuantiteDansLeStock->bindParam(':quantite', $resultatsStock["Quantite_commande"], PDO::PARAM_INT);
+            $remettreLaQuantiteDansLeStock->bindParam(':id', $resultatsStock["ID_teeshirt"], PDO::PARAM_INT);
+            $remettreLaQuantiteDansLeStock->execute();
+        }
     }
     if((!empty($_POST["livrer"])) AND (!empty($_GET["com"]))){
         $idAnnuler = $bdd->query("SELECT ID FROM etat_livraison WHERE Nom = \"Annuler\"");
@@ -25,12 +33,13 @@
     $ancienID = '';
     $i = 0;
     $commande = $bdd->query("SELECT tc.Quantite_commande, ta.Nom AS nomT_shirt, tc.ID_commande AS commandeID, tc.ID_Utilisateur, c.Date_Livraison, c.Etat_Livraison, 
-                             c.Date_commande, u.id, u.Nom as utilisateurNom, u.Email, u.Adresse, u.CP, u.ville, u.Numero, t.Numero_de_reference, t.Nom, t.prix FROM commandes AS c 
+                             c.Date_commande, u.id, u.Nom as utilisateurNom, u.Email, u.Adresse, u.CP, u.ville, u.Numero, t.Nom, t.prix FROM commandes AS c 
                              JOIN teeshirt_commande AS tc ON tc.ID_commande = c.ID
                              JOIN teeshirts AS t ON t.id = tc.ID_teeshirt
                              JOIN utilisateurs AS u ON u.id = tc.ID_Utilisateur
                              JOIN tailles AS ta ON ta.id = tc.ID_taille
-                             WHERE tc.flag_annule = 0");
+                             WHERE tc.flag_annule = 0
+                             ORDER BY c.Date_commande");
     echo "<div class=\"d-flex flex-column container mx-auto mb-5\">";
     while($c = $commande ->fetch()){
         if($ancienID !== $c["commandeID"]){

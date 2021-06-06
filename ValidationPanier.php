@@ -1,5 +1,9 @@
 <?php
     include("Head.php");
+    ?>
+    </head>
+    <body>
+<?php
     include("Header.php");
     if(empty($_SESSION["idArticle"])){
         header("Location: index.php");
@@ -41,7 +45,6 @@
         }
     }
 ?>
-<body>
     <div class="d-flex justify-content-around my-5 container flex-wrap">
         <form method="POST" action="<?php echo ($connecte) ? "Traitement/TraitementCréationDeCommande.php" : "Traitement/TraitementNouveauCompte.php" ?>" class="d-flex flex-column background-light p-3 mb-4 border rounded">
             <h2 class="align-self-center color-green">Vos coordonnées</h2>
@@ -99,12 +102,12 @@
             <form method="POST" action="Traitement/TraitementConnexionClient.php" class="d-flex flex-column background-light p-3 border rounded align-self-start">
                 <h2 class="align-self-center color-green">Déjà membre</h2>
                 <div class="d-flex justify-content-between my-1 bold color-green">
-                    <label class="m-0" for="Mail">Adresse mail :</label>
-                    <input type="text" name="Mail" id="Mail" class="ml-2">
+                    <label class="m-0" for="Mail2">Adresse mail :</label>
+                    <input type="text" name="Mail" id="Mail2" class="ml-2">
                 </div>
                 <div class="d-flex justify-content-between my-1 bold color-green">
-                    <label class="m-0" for="Mail">Mot de passe :</label>
-                    <input type="password" name="MDP" id="MDP" class="ml-2">
+                    <label class="m-0" for="MDP2">Mot de passe :</label>
+                    <input type="password" name="MDP" id="MDP2" class="ml-2">
                 </div>
                 <div class="d-flex justify-content-end my-1 bold color-green">
                     <input type="submit"  name="connecter" value="Se connecter">
@@ -126,3 +129,5 @@
         </div>
 
     </div> 
+</body>
+</html>

@@ -3,9 +3,11 @@
     if(empty($_SESSION["id"])){
         header("Location: ../ConnexionAdmin.php");
     }
+?>
+<body>
+<?php
     include("AdminHeader.html");
     $gestion_element = array("taille", "categorie", "modele", "auteur");
-    print_r($_POST);
     if(!empty($_POST)){
         $seulementLestablesVoulus = false;
         foreach($_POST as $key => $value){
@@ -44,7 +46,6 @@
         
     }
 ?>
-<body>
     <section class="container">
         <h1>Gestion des tailles, modèles, catégories, auteurs</h1>
         <?php
@@ -62,9 +63,9 @@
                 <?php
                     $nomtable = $gestion_element[$i]."s";
                     if($nomtable == "modeles"){
-                        $element_de_tableau = $bdd ->query('SELECT id, modele AS nom FROM '.$nomtable);
+                        $element_de_tableau = $bdd ->query('SELECT id, modele AS nom FROM '.$nomtable.' WHERE Flag_sup = 0');
                     }else{
-                        $element_de_tableau = $bdd ->query('SELECT id, nom FROM '.$nomtable);
+                        $element_de_tableau = $bdd ->query('SELECT id, nom FROM '.$nomtable.' WHERE Flag_sup = 0');
                     }
                     echo "<select name=\"Supp_".$gestion_element[$i]."\" id=\"\">";
                     while($e = $element_de_tableau -> fetch()):?>

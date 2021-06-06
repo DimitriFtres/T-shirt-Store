@@ -50,7 +50,6 @@
                     }else{
                         $modification = [
                             'ok' => 'ok',
-                            'Numero_de_reference' => '',
                             'Nom' => '',
                             'Prix' => '',
                             'Description' => '',
@@ -63,10 +62,6 @@
     ?>
     <div class="row mt-4 container mx-auto">
         <form class="col-12 col-md-9 col-lg-6 m-auto" action="<?php echo (!empty($_GET["id"])) ? "../Traitement/TraitementModificationTshirt.php?id=".htmlspecialchars($_GET["id"]) : "../Traitement/TraitementNouveauTshirt.php";  ?>" method="post" enctype="multipart/form-data">
-            <div class="d-flex justify-content-between mb-3">
-                <label for="reference">Numéro de référence :</label>
-                <input type="text" id="reference" name="numero_de_reference" value="<?= $modification["Numero_de_reference"] ?>">
-            </div>
             <div class="d-flex justify-content-between mb-3">
                 <label for="nom">Nom du t-shirt :</label>
                 <input type="text" id="nom" name="nom" value="<?= $modification["Nom"] ?>">
@@ -91,7 +86,7 @@
                 <span>Taille possible :</span>
                 <div>
                     <?php
-                        $taille = $bdd ->query('SELECT id, nom FROM tailles');
+                        $taille = $bdd ->query('SELECT id, nom FROM tailles WHERE flag_sup = 0');
                         while($t = $taille -> fetch()){
                             echo "<input type=\"checkbox\" id=\"taille".$t["nom"]."\" name=\"taille[]\" value=\"".$t["id"]."\"";
                             foreach($tailledispo as $k => $v){
@@ -108,7 +103,7 @@
                 <span>Modèle possible :</span>
                 <div>
                     <?php
-                        $modele = $bdd ->query('SELECT id, modele FROM modeles');
+                        $modele = $bdd ->query('SELECT id, modele FROM modeles WHERE flag_sup = 0');
                         while($m = $modele -> fetch()){
                             echo "<input type=\"checkbox\" id=\"".$m["modele"]."\" name=\"modele[]\" value=\"".$m["id"]."\"";
                             foreach($modeledispo as $k => $v){
@@ -125,7 +120,7 @@
                     <label for="categorie">Catégorie :</label>
                     <select id="categorie" name="categorie">
                     <?php
-                        $categorie = $bdd ->query('SELECT id, nom FROM categories WHERE Flag_supp IS NULL');
+                        $categorie = $bdd ->query('SELECT id, nom FROM categories WHERE Flag_sup = 0');
                         while($c = $categorie -> fetch()){
                                 echo "<option value=\"".$c['id']."\"";
                                 if($categoriedispo === $c['id']){
@@ -140,7 +135,7 @@
                     <label for="auteur">Auteur :</label>
                     <select id="auteur" name="auteur">
                     <?php
-                        $auteur = $bdd ->query('SELECT id, nom FROM auteurs');
+                        $auteur = $bdd ->query('SELECT id, nom FROM auteurs WHERE flag_sup = 0');
                         while($a = $auteur -> fetch()){
                                 echo "<option value=\"".$a['id']."\"";
                                 if($auteurdispo === $a['id']){

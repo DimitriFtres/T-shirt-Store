@@ -4,7 +4,7 @@
     $password = "pcs33ctjva";
     $table_name = "fastr1522145";
 try {
-    $bdd = new PDO("mysql:host=$host; dbname=$table_name", $user, $password);
+    $bdd = new PDO("mysql:host=$host; dbname=$table_name;charset=UTF8", $user, $password);
 } 
 catch(Exception $e) {
     die('Erreur ; ' .$e->getMessage());

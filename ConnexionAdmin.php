@@ -1,6 +1,7 @@
 <?php
     include("Head.php");
 ?>
+</head>
 <body class="h-100 d-flex flex-column">
     <?php
         include("Header.php");
@@ -8,7 +9,7 @@
     <div class="d-flex my-auto flex-column align-items-center justify-content-center">
         <p class="h1 text-center mb-3">Connexion</p>
         <div class="bg-light d-flex flex-column align-items-center p-3">
-            <img src="#" alt="logo t-shirt">
+            <img src="Image\Logo_tshirtstore.png" alt="logo t-shirt">
             <p class="h2 mt-3">Admin</p>
             <?php
                 if(isset($_SESSION["id"])){

@@ -14,18 +14,15 @@
                 echo "<h1 class=\"text-center my-5\">Un problème est survenu durant la modification. Veuillez recommencer.</h1>";
             }
         }
-        $tshirt = $bdd->query('SELECT t.id, t.numero_de_reference, t.nom, t.Image, t.Quantite_stock FROM teeshirts AS t 
+        $tshirt = $bdd->query('SELECT t.id, t.nom, t.Image, t.Quantite_stock FROM teeshirts AS t 
         WHERE t.date_supp IS NULL
         ');
         echo "<div class=\"container d-flex flex-column\">";
-        echo "<div class=\"ml-auto my-3\"><a class=\"color-light background py-1 px-2 rounded align-self-end mb-3 mx-3\" href=\"gestionCTAM.php\">Gestion des auteurs, catégories,...</a>";
-        echo "<a class=\"color-light background py-1 px-2 rounded align-self-end mb-3\" href=\"CreationTshirt.php\">Ajouter un nouveau t-shirt</a></div>";
+        echo "<div class=\"my-3 row justify-content-end mr-0\"><a class=\"color-light background py-1 px-2 rounded mb-3 mx-sm-3 mx-0\" href=\"gestionCTAM.php\">Gestion des auteurs, catégories,...</a>";
+        echo "<a class=\"color-light background py-1 px-2 rounded mb-3\" href=\"CreationTshirt.php\">Ajouter un nouveau t-shirt</a></div>";
         while($list = $tshirt -> fetch()){
-            echo "<div class=\"d-flex justify-content-around mb-2 background align-items-center rounded\">
-                    <div class=\"w-75 d-flex justify-content-between\">
-                        <div class=\"pl-2 py-2 color-light w-50\">
-                            <span class=\"align-top\">".$list["numero_de_reference"]."</span>
-                        </div>
+            echo "<div class=\"row container mx-auto mb-2 background align-items-center rounded\">
+                    <div class=\"col-12 col-md-9 d-flex justify-content-between\">
                         <div class=\"pr-2 py-2 color-light w-50\">
                             <span class=\"align-middle\">".$list["nom"]."</span>
                         </div>
@@ -33,7 +30,7 @@
                             <span class=\"align-middle\"> Quantité : ".$list["Quantite_stock"]."</span>
                         </div>
                     </div>
-                    <div class=\"w-25 d-flex justify-content-end\">
+                    <div class=\"col-12 col-md-3 d-flex justify-content-end\">
                         <a class=\"px-2 color-light\" href=\"CreationTshirt.php?id={$list["id"]}\">Modifier</a>
                         <a class=\"px-2 color-light\"href=\"SupprimerTshirt.php?id={$list["id"]}\">Supprimer</a>
                     </div>

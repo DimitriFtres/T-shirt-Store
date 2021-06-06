@@ -15,10 +15,8 @@ function numerique($number){
 }
 
 function rendre_le_prix_float($prix) {
-str_replace(',', '.', $prix);
-$prix = trim($prix);
-$prix = floatval($prix);
-$prix = round($prix, 2);
+    number_format($prix, 2, ".", "");
+    return $prix;
 }
 function modifierBDD($bdd, $nomtable, $id, $tableauAChanger, $champautre, $champteeshirt){
     $champsBdd = $bdd->prepare("SELECT * FROM ".$nomtable." WHERE ".$champteeshirt." = ?");
@@ -78,10 +76,10 @@ function VerifCodePostal ($CP){
     return (preg_match('/\d{4}/', $CP)) ? true : false;
 }
 function VerifNumero ($numero){
-    return (preg_match('/(\d{2,4})/', $numero)) ? true : false;
+    return (preg_match('/(\d{1,4})/', $numero)) ? true : false;
 }
 function VerifNom ($nom){
-    return (preg_match('/[a-z -]+/i', $nom)) ? true : false;
+    return (preg_match('/.[^0-9]+/ixs', $nom)) ? true : false;
 }
 function modifier_stock_tshirt($bdd, $plusOUmoins, $differenceModification, $idTshirt){
     $quantiteFinal = NULL;

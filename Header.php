@@ -6,7 +6,7 @@
                 <?php
                     $liste = '<li class="nav-item">';
                     $classANav = 'class="nav-link color-light bold text-capitalize text-center"';
-                    $categories = $bdd ->query('SELECT Nom FROM categories WHERE Flag_supp IS NULL LIMIT 6');
+                    $categories = $bdd ->query('SELECT Nom FROM categories WHERE Flag_sup = 0');
                     while($categoriesVal = $categories -> fetch()){
                         echo $liste.'<a href="Categorie.php?cat='.$categoriesVal["Nom"].'"'.$classANav.'>'.$categoriesVal['Nom'].'</a></li>'."\n";
                     }

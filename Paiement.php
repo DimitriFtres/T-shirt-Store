@@ -1,6 +1,10 @@
 <?php
 include('Head.php');
+if(empty($_SESSION["Email"]) AND empty($_SESSION["totalPanier"])){
+    header("Location: index.php");
+}
 ?>
+</head>
 <body>
 <?php
     include('Header.php');
@@ -22,7 +26,15 @@ $message = "
         <h1>Merci pour votre commande</h1>
         <p>Votre commande sera livrée lorsque votre paiement de ".$_SESSION["totalPanier"]."€ sera reçu sur le compte en banque BE65 9584 1235 4578. Veuillez mettre votre nom et prénom ainsi que votre adresse dans la communication libre. Vos informations ne peuvent pas être différentes de celles que vous avez entrées.</p>
         <p>Voici un résumé de votre commande : </p>
-        <table>";
+        <table>
+        <tr><td>Nom du T-shirt</td>
+        <td>Taille</td>
+        <td>Modele</td>
+        <td>Quantité</td>
+        <td>Prix</td>
+        <td>Total par T-shirt</td>
+        </tr>"
+        ;
 foreach($_SESSION["idArticle"] as $k => $v){
     $message .= "<tr><td>".$_SESSION["NomTshirt"][$k]."</td>
         <td>".$_SESSION["taille"][$k]."</td>
@@ -37,7 +49,7 @@ $message .= "</table>
 </html>";
 $message = wordwrap($message, 70, "\r\n");
 $headers = "MIME-Version: 1.0"."\r\n". 
-"Content-type: text/html; charset=iso-8859-1"."\r\n". 
+"Content-type: text/html; charset=UTF-8"."\r\n". 
 "From: contact@tshirtstore.com" . "\r\n" .
 "Reply-To: contact@tshirtstore.com" . "\r\n" .
 "X-Mailer: PHP/" . phpversion();
