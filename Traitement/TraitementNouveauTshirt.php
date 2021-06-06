@@ -3,7 +3,7 @@
     if(!isset($_SESSION["id"])){
         header("Location: ../ConnexionAdmin.php");
     }
-    require('../Function/Fonctiondonnee.php');
+    require('fonctiondonnee.php');
     if((!empty($_GET["id"])) AND (is_numeric($_GET["id"]))){ 
         header("Location: ../Traitement/traitementModificationTshirt.php?id=".htmlspecialchars($_GET["id"]));
     }
@@ -34,7 +34,7 @@
                     header("Location: ../Administration/CreationTshirt.php?error=3");
                 }
             }else{
-                header("Location: ../Administration/CreationTshirt.php?error=4");
+                header("Location: ../Administration/CreationTshirt.php?error=3");
             }
         }else{
         header('Location: ../Administration/CreationTshirt.php?error=1');

@@ -1,11 +1,12 @@
 <?php
-    require '../Function/Fonctiondonnee.php';
+    session_start();
     if(!isset($_SESSION["id"])){
         header("Location: ../ConnexionAdmin.php");
     }
     $table = "teeshirts";
+    require '../Function/fonctiondonnee.php';
     if(empty($_GET["id"])){
-        header('Location: ../Traitement/TraitementNouveauTshirt.php');
+        header('Location: ../traitement/traitementNouveauTshirt.php');
         exit;
     }elseif($_GET["id"] > maximumBDD($bdd, $table)){
         header('Location: ../Administration/AdminGestionT-shirt.php?success=ko');  
@@ -15,7 +16,7 @@
         $nouveau = $bdd->prepare("UPDATE teeshirts SET
                                   Nom = ?,
                                   Prix = ?,
-                                  Quantite_stock = ?,
+                                  Quantite_Stock = ?,
                                   Description = ?,
                                   Categorie = ?,
                                   Auteur = ?

@@ -1,5 +1,5 @@
 <?php
-    include("../Function/Fonctiondonnee.php");
+    include("../Function/fonctiondonnee.php");
     // verifie que nom,prenom,rue,ville soit que des lettres et que numero et codePOstal soit des nombres et verifie l'email
     if(isset($_POST["Créer"])){
         if((isset($_POST["Numero"])) AND (isset($_POST["CodePostal"])) AND (isset($_POST["Nom"])) AND (isset($_POST["Prenom"])) AND (isset($_POST["Rue"])) AND (isset($_POST["Ville"])) AND (filter_var($_POST["Mail"], FILTER_VALIDATE_EMAIL))){
@@ -10,9 +10,8 @@
                             $verifMail = $bdd->prepare("SELECT id FROM utilisateurs WHERE Email = :mail");
                             $verifMail->execute(array(":mail" => $_POST["Mail"]));
                             if($verifMail->rowCount() == 0){
-                                $mdpCrypter = hash("sha256", $_POST["MDP"]);
                                 $NClient = $bdd->prepare("INSERT INTO utilisateurs (Nom, Prenom, Email, Adresse, CP, Numero, MDP, Ville) VALUES (?,?,?,?,?,?,?,?)");
-                                $NClient->execute(array($_POST["Nom"], $_POST["Prenom"], $_POST["Mail"], $_POST["Rue"], $_POST["CodePostal"], $_POST["Numero"], $mdpCrypter, $_POST["Ville"]));       
+                                $NClient->execute(array($_POST["Nom"], $_POST["Prenom"], $_POST["Mail"], $_POST["Rue"], $_POST["CodePostal"], $_POST["Numero"], $_POST["MDP"], $_POST["Ville"]));       
                                 $nomtable = "utilisateurs";
                                 $_SESSION["idUtilisateur"] = maximumBDD ($bdd, $nomtable);
                                 $utilisateur = $bdd->query("SELECT Nom, Prenom, Email, Adresse, CP, MDP, Ville, Numero FROM utilisateurs WHERE id = ".$_SESSION["idUtilisateur"]);
@@ -42,5 +41,6 @@
             header("Location: ../ValidationPanier.php?erreur=1");
         }
     }else{
+        echo "hello";
         //header("Location: index.php");
     }

@@ -2,9 +2,8 @@
     include("../Function/Fonctiondonnee.php");
     if(!empty($_POST["connecter"])){
         // verifier que l'utilisateur se trouve dans la db
-        $mdpCrypter = hash("sha256", $_POST["MDP"]);
         $utilisateur = $bdd->prepare("SELECT id as idUtilisateur, Nom, Prenom, Email, Adresse, CP, MDP, Ville, Numero FROM utilisateurs WHERE Email = ? AND MDP = ?");
-        $utilisateur->execute(array($_POST["Mail"], $mdpCrypter));
+        $utilisateur->execute(array($_POST["Mail"], $_POST["MDP"]));
         if($utilisateur->rowCount() == 1){
             $u = $utilisateur->fetch();
             foreach($u as $key=>$value){

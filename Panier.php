@@ -32,7 +32,7 @@
                     if(!empty($_SESSION["taille"])){
                         $nomTaille = $_SESSION["taille"][$key];
                     }
-                    $articlePanier = $bdd -> prepare("SELECT id, Image, Nom, Prix FROM teeshirts WHERE id = :id");
+                    $articlePanier = $bdd -> prepare("SELECT id, Image, Nom, Prix FROM Teeshirts WHERE id = :id");
                     if($articlePanier -> execute(array(':id' => $value))){
                         if($aP = $articlePanier -> fetch()){
                             $total = $total + ($aP["Prix"] * $_SESSION["quantite"][$key]);
