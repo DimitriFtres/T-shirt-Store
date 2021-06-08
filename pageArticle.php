@@ -9,7 +9,7 @@
 
 <?php
     if((!empty($_GET["idArticle"])) AND (is_numeric($_GET["idArticle"]))){
-        $article = $bdd->prepare("SELECT t.Nom, t.Prix, t.Image, t.Description, t.Auteur, a.nom AS nomComplet FROM teeshirts as t
+        $article = $bdd->prepare("SELECT t.Nom, t.Prix, t.Image, t.Auteur, a.nom AS nomComplet FROM teeshirts as t
                         JOIN auteurs AS a ON t.auteur = a.id
                         WHERE t.ID = :id AND Date_supp IS NULL AND quantite_stock > 0");
         if($article->execute(array(':id' => $_GET["idArticle"]))){
@@ -29,7 +29,7 @@
                                         WHERE ID_Teeshirt = :id AND Flag_sup = 0");
                 $taille->execute(array(':id' => $_GET["idArticle"]));
                     while($t = $taille->fetch()){
-                    echo "<option value=\"".$t["id"]."\">".$t["Nom"]."</option>";
+                    echo "<option value=\"".$t["Nom"]."\">".$t["Nom"]."</option>";
                     }
                     echo"</select>
                         </div>
@@ -41,7 +41,7 @@
                                         WHERE ID_Teeshirt = :id AND Flag_sup = 0");
                 $modele->execute(array(':id' => $_GET["idArticle"]));
                     while($m = $modele->fetch()){
-                    echo "<option value=\"".$m["id"]."\">".$m["modele"]."</option>";
+                    echo "<option value=\"".$m["modele"]."\">".$m["modele"]."</option>";
                     }
                     echo"</select>
                         </div>

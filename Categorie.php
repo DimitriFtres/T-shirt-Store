@@ -7,20 +7,22 @@
     <?php
         include("Header.php");
         if(isset($_GET["cat"])){
-            $compteur = $bdd->prepare("SELECT count(t.id) as maxi FROM teeshirts as t
+            $compteur = $bdd->prepare("SELECT count(distinct(t.id)) as maxi FROM teeshirts as t
                                      JOIN categories as c on c.id = t.categorie
                                      JOIN tailles_disponible AS td ON td.ID_Teeshirt = t.ID
                                      JOIN tailles AS ta ON ta.id = td.ID_Taille
                                      WHERE c.nom = :cat AND c.Flag_sup = 0 AND t.Date_supp IS NULL
-                                     GROUP BY td.ID_Teeshirt");
+                                     ");
             $compteur->execute(array(":cat" => $_GET["cat"]));
             $nombre_de_Tshirt = $compteur->fetch();
-            $nombre_de_page = ceil($nombre_de_Tshirt["maxi"]/6);
+            $nombre_de_page = $nombre_de_Tshirt["maxi"]/6;
             $debut_Selection_Tshirt = 0;
-            echo "<div class=\"container mt-5 d-flex justify-content-end\">";
-            for($i = 0; $i < $nombre_de_page; $i++){
-                $e = $i+1;
-                echo "<a href=\"?cat=".$_GET["cat"]."&page=".$i."\" class=\"btn btn-outline-secondary btn-sm ml-2\" value=\"$i\">".$e."</a>";
+            if($nombre_de_page > 1){
+                echo "<div class=\"container mt-5 d-flex justify-content-end\">";
+                for($i = 0; $i < $nombre_de_page; $i++){
+                    $e = $i+1;
+                        echo "<a href=\"?cat=".$_GET["cat"]."&page=".$i."\" class=\"btn btn-outline-secondary btn-sm ml-2\" value=\"$i\">".$e."</a>";
+                }
             }
             echo "</div>";
             if(!empty($_GET["page"])){

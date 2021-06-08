@@ -1,8 +1,9 @@
 <?php
 include('Head.php');
-if(empty($_SESSION["Email"]) AND empty($_SESSION["totalPanier"])){
-    header("Location: index.php");
+if((empty($_SESSION["Email"])) OR (empty($_SESSION["totalPanier"]))){
+    header("Location: Index.php");
 }
+print_r($_SESSION);
 ?>
 </head>
 <body>
@@ -41,13 +42,12 @@ foreach($_SESSION["idArticle"] as $k => $v){
         <td>".$_SESSION["modele"][$k]."</td>
         <td>".$_SESSION["quantite"][$k]."X</td>
         <td>".$_SESSION["PrixTshirt"][$k]."€</td>
-        <td>".$_SESSION["totalParArticle"][$k]."€</td>
-        </tr>"; //nom t-shirt et prixpart-shirt n'existent pas
+        <td>".$_SESSION["quantite"][$k]*$_SESSION["PrixTshirt"][$k]."€</td>
+        </tr>";
 }
 $message .= "</table>
 </body>
 </html>";
-echo $message;
 $message = wordwrap($message, 70, "\r\n");
 $headers = "MIME-Version: 1.0"."\r\n". 
 "Content-type: text/html; charset=UTF-8"."\r\n". 
@@ -59,6 +59,7 @@ mail($to, $subject, $message, $headers);
 if(!empty($_SESSION)){
     session_unset();
 }
+
 ?>
 
 </body>

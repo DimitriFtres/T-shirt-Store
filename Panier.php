@@ -79,39 +79,40 @@
                             </div>
                             </div>
                             </div>";
-                            $tva = $total/100*21;
-                            $tva = round($tva, 2);
-                            $_SESSION["totalPanier"]= $total;
-                            echo "<div class=\"row mt-5 container mx-0\">
-                                  <div class=\"col-3 col-md-4 px-0 text-danger h4 d-flex align-items-center mb-0\">
-                                  <div>
-                                  <p class=\"m-0\">Total:</p>
-                                  </div>
-                                  </div>
-                                  <div class=\"col-5 col-md-5 text-danger h6 d-flex align-items-end mb-0\">
-                                  <div>
-                                  <p class=\"m-0\">TVA : ".$tva."€</p>
-                                  </div>
-                                  </div>
-                                  <div class=\"col-4 col-md-3 p-0 text-danger h6 d-flex align-items-end mb-0\">
-                                  <div>
-                                  <p class=\"m-0\">TVAC : ".$total."€</p>
-                                  </div>
-                                  </div>
-                                  </div>";
-                            echo "<div class=\"container d-flex justify-content-end mt-3\">
-                                  <div>
-                                  <a href=\"ValidationPanier.php\" class=\"py-2 btn btn-light border\">Valider mon panier</a>
-                                  </div>      
-                                  </div>";
                         }
                     }
                 }
+            }
+            if(!empty($_SESSION["idArticle"])){
+                $tva = $total/100*21;
+                $tva = round($tva, 2);
+                $_SESSION["totalPanier"]= $total;
+                echo "<div class=\"row mt-5 container mx-0\">
+                      <div class=\"col-3 col-md-4 px-0 text-danger h4 d-flex align-items-center mb-0\">
+                      <div>
+                      <p class=\"m-0\">Total:</p>
+                      </div>
+                      </div>
+                      <div class=\"col-5 col-md-5 text-danger h6 d-flex align-items-end mb-0\">
+                      <div>
+                      <p class=\"m-0\">TVA : ".$tva."€</p>
+                      </div>
+                      </div>
+                      <div class=\"col-4 col-md-3 p-0 text-danger h6 d-flex align-items-end mb-0\">
+                      <div>
+                      <p class=\"m-0\">TVAC : ".$total."€</p>
+                      </div>
+                      </div>
+                      </div>";
+                echo "<div class=\"container d-flex justify-content-end mt-3\">
+                      <div>
+                      <a href=\"ValidationPanier.php\" class=\"py-2 btn btn-light border\">Valider mon panier</a>
+                      </div>      
+                      </div>";
             }else{
-                echo "<h2 class=\"text-center h3 mt-5\">Votre panier est vide</h2>";
+                echo "<p class=\"text-center h3 mt-5\">Votre panier est vide</p>";
             }
         ?>
-
 
 
     </section>

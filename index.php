@@ -17,8 +17,6 @@
                     $etiquette = $bdd->query('SELECT t.id, t.nom, t.Image, t.Prix, a.nom as auteur_nom, COUNT(tc.ID_teeshirt) AS position FROM teeshirts AS t 
                                               JOIN teeshirt_commande AS tc ON tc.ID_teeshirt = t.id
                                               JOIN auteurs as a ON a.id = t.auteur
-                                              JOIN tailles_disponible AS td ON td.ID_Teeshirt = t.ID
-                                              JOIN tailles AS ta ON ta.id = td.ID_Taille
                                               WHERE t.Date_supp IS NULL AND Quantite_stock > 0
                                               GROUP BY tc.ID_teeshirt ASC 
                                               LIMIT 3');

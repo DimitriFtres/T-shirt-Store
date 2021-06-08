@@ -39,8 +39,6 @@ if(isset($_POST["Changer"])){
                     creationCommande($bdd, $_SESSION["idUtilisateur"], $_SESSION["modele"], $_SESSION["idArticle"], $_SESSION["taille"], $_SESSION["quantite"]);
                     
                     header('Location: ../Paiement.php');
-                }else{
-
                 }
             }else{
                 $tshirtmanquant = $bdd->prepare("SELECT Nom FROM teeshirts WHERE ID = :id");

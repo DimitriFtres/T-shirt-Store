@@ -105,9 +105,15 @@ function creationCommande($bdd, $idUtilisateur, array $tabmodele, array $tabtees
     $creationCommande = $bdd->query("INSERT INTO commandes (Date_commande, Etat_Livraison) VALUES (NOW(), 1)");
     $commandes = "commandes";
     $recupID = maximumBDD ($bdd, $commandes);
+    $recupTailles = $bdd->prepare("SELECT ID FROM tailles WHERE Nom = :taille");
+    $recupModeles = $bdd->prepare("SELECT ID FROM modeles WHERE Modele = :modele");
     $creationCommande = $bdd->prepare("INSERT INTO teeshirt_commande (ID_commande, ID_utilisateur, ID_modele, ID_teeshirt, ID_taille, Quantite_commande) VALUES (?,?,?,?,?,?)");
     foreach($tabteeshirt as $k => $v){
-        $creationCommande->execute(array($recupID, $idUtilisateur, $tabmodele[$k], $tabteeshirt[$k], $tabtaille[$k], $tabquantite[$k]));
+        $recupTailles->execute(array(":taille" => $tabtaille[$k]));
+        $recupModeles->execute(array(":modele" => $tabmodele[$k]));
+        $taille = $recupTailles->fetch();
+        $modele = $recupModeles->fetch();
+        $creationCommande->execute(array($recupID, $idUtilisateur, $modele["ID"], $tabteeshirt[$k], $taille["ID"], $tabquantite[$k]));
     }
 
 }

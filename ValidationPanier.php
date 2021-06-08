@@ -1,13 +1,13 @@
 <?php
     include("Head.php");
-    ?>
+?>
     </head>
     <body>
 <?php
-    include("Header.php");
     if(empty($_SESSION["idArticle"])){
         header("Location: index.php");
     }
+    include("Header.php");
     $connecte = false;
     $message = false;
     if((!empty($_GET["connecte"])) AND ($_GET["connecte"] === "ok") AND (!empty($_SESSION["idUtilisateur"]))){

@@ -16,14 +16,13 @@
                                   Nom = ?,
                                   Prix = ?,
                                   Quantite_stock = ?,
-                                  Description = ?,
                                   Categorie = ?,
                                   Auteur = ?
                                   WHERE ID = ?
                                   ");
         $_POST["quantite"] = numerique($_POST["quantite"]);
         $_POST["prix"] = rendre_le_prix_float($_POST["prix"]);
-        if($nouveau ->execute(array($_POST["nom"], $_POST["prix"], $_POST["quantite"], $_POST["description"], $_POST["categorie"], $_POST["auteur"], $_GET["id"]))){
+        if($nouveau ->execute(array($_POST["nom"], $_POST["prix"], $_POST["quantite"], $_POST["categorie"], $_POST["auteur"], $_GET["id"]))){
             $t = "tailles_disponible";
             $id = $_GET["id"];
             $tab = $_POST["taille"];

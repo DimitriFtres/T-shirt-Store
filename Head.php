@@ -15,10 +15,10 @@
         <meta name="twitter:card" content="Magasin de t-shirt" />
         <meta name="keywords" content="t-shirt, tee-shirt, vetement, wallonie" />
         <meta name="description" content="Magasin de vente de t-shirt" />
-        <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="css/Style.css" type="text/css" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-        <link href="css/Style.css" type="text/css" rel="stylesheet">
         <title>T-shirt Store</title>
 

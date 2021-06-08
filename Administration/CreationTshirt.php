@@ -52,7 +52,6 @@
                             'ok' => 'ok',
                             'Nom' => '',
                             'Prix' => '',
-                            'Description' => '',
                             'Image' => '',
                             'Quantite_stock' => ''
                         ];
@@ -69,10 +68,6 @@
             <div class="d-flex justify-content-between mb-3">
                 <label for="prix">Prix :</label>
                 <input type="text" id="prix" name="prix" value="<?= $modification["Prix"] ?>">
-            </div>
-            <div class="d-flex justify-content-between mb-3">
-                <label for="description">Description : </label>
-                <textarea id="description" name="description" rows="5" cols="23"><?= $modification["Description"] ?></textarea>
             </div>
             <div class="d-flex justify-content-between mb-3">
                 <label for="image">Image du t-shirt :</label>
