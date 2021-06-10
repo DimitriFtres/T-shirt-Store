@@ -1,4 +1,7 @@
 <?php
+    if((empty($_GET["idArticle"])) or (!is_numeric($_GET["idArticle"]))){
+        header('Location: Index.php');
+    }
     include("Head.php");
 ?>
 </head>
