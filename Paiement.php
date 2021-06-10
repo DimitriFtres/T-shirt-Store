@@ -3,7 +3,6 @@ include('Head.php');
 if((empty($_SESSION["Email"])) OR (empty($_SESSION["totalPanier"]))){
     header("Location: Index.php");
 }
-print_r($_SESSION);
 ?>
 </head>
 <body>
